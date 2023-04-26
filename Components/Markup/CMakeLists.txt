@@ -1,8 +1,8 @@
-project(UI LANGUAGES CXX)
+project(Markup LANGUAGES CXX)
 
-set(INCLUDE_PREFIX "include/UI")
+set(INCLUDE_PREFIX "include/Markup")
 set(HEADERS
-    ${INCLUDE_PREFIX}/Window.h
+    ${INCLUDE_PREFIX}/Markup.h
 )
 
 set(INCLUDE_TARGET ${PROJECT_NAME}.Include)
@@ -12,7 +12,7 @@ target_include_directories(${INCLUDE_TARGET} INTERFACE "${CMAKE_CURRENT_SOURCE_D
 
 set(SOURCES_PREFIX "src")
 set(SOURCES
-    ${SOURCES_PREFIX}/Window.cpp
+    ${SOURCES_PREFIX}/Markup.cpp
 )
 
 set(STATIC_TARGET ${PROJECT_NAME}.Static)
@@ -23,8 +23,5 @@ add_library(${STATIC_TARGET} STATIC
 target_link_libraries(${STATIC_TARGET}
     PUBLIC
         ${INCLUDE_TARGET}
-    PRIVATE
-        Markup.Static
+    # PRIVATE
 )
-
-# add_subdirectory(UI.Test)
