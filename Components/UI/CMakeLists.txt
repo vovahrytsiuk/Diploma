@@ -27,4 +27,12 @@ target_link_libraries(${STATIC_TARGET}
         Markup.Static
 )
 
+add_link_options(
+    /SUBSYSTEM:WINDOWS
+    /DYNAMICBASE 
+    Version.lib
+    Comctl32.lib
+    /MACHINE:X64
+)
+
 # add_subdirectory(UI.Test)
