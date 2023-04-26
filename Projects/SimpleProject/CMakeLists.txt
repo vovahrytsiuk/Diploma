@@ -8,6 +8,17 @@ set(EXECUTABLE_SOURCES
     main.cpp
 )
 
+add_link_options(
+    /SUBSYSTEM:WINDOWS
+    /DYNAMICBASE 
+    Version.lib
+    Comctl32.lib
+    /MACHINE:X64
+)
+
+set_target_properties(${PROJECT_NAME} PROPERTIES WIN32_EXECUTABLE TRUE)
+
+
 add_executable(${EXECUTABLE_TARGET} ${EXECUTABLE_SOURCES})
 
 target_link_libraries(${EXECUTABLE_TARGET}
