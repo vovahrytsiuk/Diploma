@@ -1,0 +1,2 @@
+add_subdirectory(SimpleProject)
+#add_subdirectory(WindowDemo)
