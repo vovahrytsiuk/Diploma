@@ -9,9 +9,9 @@
 class Window
 {
 public:
-    Window([[maybe_unused]] HINSTANCE hInstance, [[maybe_unused]] int nCmdShow)
+    Window(std::wstring title, HINSTANCE hInstance)
+        : _title{title}, _hInstance{hInstance}, _isShown{true}
     {
-
         WNDCLASS wc = {};
 
         wc.lpfnWndProc = Window::WindowProc;
@@ -20,38 +20,47 @@ public:
 
         RegisterClass(&wc);
 
-        // Create the window.
+        create();
+        show();
+    }
 
+    bool create()
+    {
         _hwnd = CreateWindowEx(
-            0,                           // Optional window styles.
-            _className.c_str(),          // Window class
-            L"Learn to Program Windows", // Window text
-            WS_OVERLAPPEDWINDOW,         // Window style
+            0,                   // Optional window styles.
+            _className.c_str(),  // Window class
+            _title.c_str(),      // Window text
+            WS_OVERLAPPEDWINDOW, // Window style
 
             // Size and position
             CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
 
-            NULL,      // Parent window
-            NULL,      // Menu
-            hInstance, // Instance handle
-            NULL       // Additional application data
+            NULL,       // Parent window
+            NULL,       // Menu
+            _hInstance, // Instance handle
+            NULL        // Additional application data
         );
 
-        ShowWindow(_hwnd, nCmdShow);
+        return _hwnd != NULL;
+    }
 
-        // Run the message loop.
+    void show()
+    {
+        ShowWindow(_hwnd, _isShown);
+    }
 
-        MSG msg = {};
-        while (GetMessage(&msg, NULL, 0, 0) > 0)
-        {
-            TranslateMessage(&msg);
-            DispatchMessage(&msg);
-        }
+    void SetTitle(const std::wstring &title)
+    {
+        _title = title;
     }
 
 private:
     std::wstring _className = L"Main Window";
-    static LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
+    std::wstring _title;
+    bool _isShown;
+    HINSTANCE _hInstance;
     HWND _hwnd;
+
+    static LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 };

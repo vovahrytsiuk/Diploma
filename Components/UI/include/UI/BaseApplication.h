@@ -4,19 +4,28 @@
 #endif
 
 #include "Window.h"
+#include <string>
 
 class BaseApplication
 {
 public:
-    BaseApplication([[maybe_unused]] HINSTANCE hInstance, [[maybe_unused]] HINSTANCE hPrevInstance, [[maybe_unused]] PWSTR pCmdLine, [[maybe_unused]] int nCmdShow)
-        : _hInstance{hInstance}, _hPrevInstance{hPrevInstance}, _pCmdLine{pCmdLine}, _nCmdShow{nCmdShow}, _mainWindow{_hInstance, _nCmdShow}
+    BaseApplication(std::wstring title)
+        : _hInstance{GetModuleHandle(NULL)}, _mainWindow{title, _hInstance}
     {
+        _mainWindow.SetTitle(L"Hello");
+    }
+
+    void runMessageLoop()
+    {
+        MSG msg = {};
+        while (GetMessage(&msg, NULL, 0, 0) > 0)
+        {
+            TranslateMessage(&msg);
+            DispatchMessage(&msg);
+        }
     }
 
 private:
     HINSTANCE _hInstance;
-    HINSTANCE _hPrevInstance;
-    PWSTR _pCmdLine;
-    int _nCmdShow;
     Window _mainWindow;
 };
