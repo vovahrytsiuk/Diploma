@@ -1,8 +1,11 @@
 project(UI LANGUAGES CXX)
 
+set(WIDGETS_PREFIX "Widgets/")
 set(INCLUDE_PREFIX "include/UI")
 set(HEADERS
+    ${INCLUDE_PREFIX}/BaseApplication.h
     ${INCLUDE_PREFIX}/Window.h
+    ${INCLUDE_PREFIX}/${WIDGETS_PREFIX}/Button.h
 )
 
 set(INCLUDE_TARGET ${PROJECT_NAME}.Include)
@@ -12,7 +15,9 @@ target_include_directories(${INCLUDE_TARGET} INTERFACE "${CMAKE_CURRENT_SOURCE_D
 
 set(SOURCES_PREFIX "src")
 set(SOURCES
+    ${SOURCES_PREFIX}/BaseApplication.cpp
     ${SOURCES_PREFIX}/Window.cpp
+    ${SOURCES_PREFIX}/${WIDGETS_PREFIX}/Button.cpp
 )
 
 set(STATIC_TARGET ${PROJECT_NAME}.Static)
