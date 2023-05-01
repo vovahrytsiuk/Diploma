@@ -5,5 +5,6 @@
 
 class IWidget
 {
-
+public:
+private:
 };

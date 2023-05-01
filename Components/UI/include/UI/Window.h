@@ -52,10 +52,11 @@ public:
     void SetTitle(const std::wstring &title)
     {
         _title = title;
+        SetWindowText(_hwnd, _title.c_str());
     }
 
 private:
-    std::wstring _className = L"Main Window";
+    std::wstring _className = L"Window";
 
     std::wstring _title;
     bool _isShown;

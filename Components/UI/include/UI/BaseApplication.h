@@ -12,7 +12,6 @@ public:
     BaseApplication(std::wstring title)
         : _hInstance{GetModuleHandle(NULL)}, _mainWindow{title, _hInstance}
     {
-        _mainWindow.SetTitle(L"Hello");
     }
 
     void runMessageLoop()
@@ -25,7 +24,12 @@ public:
         }
     }
 
+    Window &GetMainWindow()
+    {
+        return _mainWindow;
+    }
+
 private:
-    HINSTANCE _hInstance;
-    Window _mainWindow;
+    HINSTANCE _hInstance; // Application handle
+    Window _mainWindow;   // Main window of the application
 };
