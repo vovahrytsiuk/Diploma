@@ -18,6 +18,7 @@ set(SOURCES
     ${SOURCES_PREFIX}/BaseApplication.cpp
     ${SOURCES_PREFIX}/Window.cpp
     ${SOURCES_PREFIX}/${WIDGETS_PREFIX}/Button.cpp
+    ${SOURCES_PREFIX}/${WIDGETS_PREFIX}/Label.cpp
 )
 
 set(STATIC_TARGET ${PROJECT_NAME}.Static)
