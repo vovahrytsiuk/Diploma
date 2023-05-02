@@ -3,8 +3,15 @@
 #define UNICODE
 #endif
 
+#include <windows.h>
+
 class IWidget
 {
+protected:
+    HWND _hwnd;
+    virtual bool create() = 0;
+
 public:
-private:
+    IWidget() : _hwnd(NULL) {}
+    HWND get_hwnd() const { return _hwnd; }
 };

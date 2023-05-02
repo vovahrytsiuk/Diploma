@@ -55,6 +55,11 @@ public:
         SetWindowText(_hwnd, _title.c_str());
     }
 
+    HWND getHandle()
+    {
+        return _hwnd;
+    }
+
 private:
     std::wstring _className = L"Window";
 
