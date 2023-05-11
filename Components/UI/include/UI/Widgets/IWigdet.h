@@ -9,9 +9,9 @@ class IWidget
 {
 protected:
     HWND _hwnd;
-    virtual bool create() = 0;
 
 public:
+    virtual bool render(HWND parent) = 0;
     IWidget() : _hwnd(NULL) {}
     HWND get_hwnd() const { return _hwnd; }
 };

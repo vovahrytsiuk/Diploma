@@ -1,12 +1,11 @@
 #include "UI/Widgets/Button.h"
 
-Button::Button(const std::wstring &text, int x, int y, int height, int width, HWND parent)
-    : _text{text}, _x{x}, _y{y}, _height{height}, _width{width}, _parent{parent}
+Button::Button(const std::wstring &text, int x, int y, int height, int width)
+    : _text{text}, _x{x}, _y{y}, _height{height}, _width{width}
 {
-    create();
 }
 
-bool Button::create()
+bool Button::render(HWND parent)
 {
     _hwnd = CreateWindow(
         _className.c_str(),                                    // Predefined class; Unicode assumed
@@ -16,10 +15,12 @@ bool Button::create()
         _y,                                                    // y position
         _width,                                                // Button width
         _height,                                               // Button height
-        _parent,                                               // Parent window
+        parent,                                                // Parent window
         // (HMENU)params.get_mID(),                               // No menu.
         NULL,
         (HINSTANCE)GetWindowLongPtr(_parent, GWLP_HINSTANCE),
         NULL); // Pointer not needed.
+
+    SetWindowLongPtr(_hwnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(this));
     return (_hwnd ? TRUE : FALSE);
 }
