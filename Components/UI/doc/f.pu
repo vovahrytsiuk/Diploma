@@ -1,0 +1,22 @@
+@startuml
+
+class Event {
+    +name: std::string
+}
+
+class EventDispatcher {
+    -eventHandlers: std::map<std::string, EventHandler>
+
+    +addEventListener(eventName: std::string, handler: EventHandler): void
+    +removeEventListener(eventName: std::string): void
+    +dispatchEvent(event: Event): void
+}
+
+class EventHandler {
+    (void) operator()(const Event&): void
+}
+
+Event <|.. EventDispatcher
+EventHandler --> "1" Event
+
+@enduml

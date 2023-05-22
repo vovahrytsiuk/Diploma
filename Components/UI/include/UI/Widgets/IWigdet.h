@@ -9,9 +9,11 @@ class IWidget
 {
 protected:
     HWND _hwnd;
+    WORD _id;
 
 public:
     virtual bool render(HWND parent) = 0;
-    IWidget() : _hwnd(NULL) {}
+    IWidget(WORD id) : _hwnd(NULL), _id{id} {}
+    virtual ~IWidget() = default;
     HWND get_hwnd() const { return _hwnd; }
 };

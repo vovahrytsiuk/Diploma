@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 3.22)
+cmake_minimum_required (VERSION 3.19)
 
 project(SimpleProject LANGUAGES CXX)
 
@@ -16,5 +16,11 @@ target_link_libraries(${EXECUTABLE_TARGET}
     PRIVATE
         UI.Static
 )
+
+
+if(MSVC)
+    target_compile_options(${EXECUTABLE_TARGET} PRIVATE /EHsc)
+endif()
+
 
 install(TARGETS ${EXECUTABLE_TARGET})

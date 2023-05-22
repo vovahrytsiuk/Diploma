@@ -8,10 +8,10 @@
 class Label : public IWidget
 {
 public:
-    Label(const std::wstring &text, int x, int y, int height, int width, HWND parent);
+    Label(WORD id, const std::wstring &text, int x, int y, int height, int width);
 
-protected:
-    bool create() override;
+public:
+    bool render(HWND parent) override;
 
 private:
     std::wstring _className = L"Static";
@@ -20,5 +20,4 @@ private:
     int _y;
     int _height;
     int _width;
-    HWND _parent;
 };

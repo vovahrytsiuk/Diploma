@@ -1,12 +1,11 @@
 #include "UI/Widgets/Label.h"
 
-Label::Label(const std::wstring &text, int x, int y, int height, int width, HWND parent)
-    : _text{text}, _x{x}, _y{y}, _height{height}, _width{width}, _parent{parent}
+Label::Label(WORD id, const std::wstring &text, int x, int y, int height, int width)
+    : IWidget(id), _text{text}, _x{x}, _y{y}, _height{height}, _width{width}
 {
-    create();
 }
 
-bool Label::create()
+bool Label::render(HWND parent)
 {
     _hwnd = CreateWindow(
         _className.c_str(),                                    // Predefined class; Unicode assumed
@@ -16,10 +15,11 @@ bool Label::create()
         _y,                                                    // y position
         _width,                                                // Button width
         _height,                                               // Button height
-        _parent,                                               // Parent window
+        parent,                                                // Parent window
         // (HMENU)params.get_mID(),                               // No menu.
-        NULL,
-        (HINSTANCE)GetWindowLongPtr(_parent, GWLP_HINSTANCE),
+        // NULL,
+        (HMENU)_id,
+        (HINSTANCE)GetWindowLongPtr(parent, GWLP_HINSTANCE),
         NULL); // Pointer not needed.
     return (_hwnd ? TRUE : FALSE);
 }

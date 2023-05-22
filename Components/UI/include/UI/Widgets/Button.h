@@ -1,22 +1,24 @@
+#pragma once
 #ifndef UNICODE
 #define UNICODE
 #endif
 
-#include "IWigdet.h"
+#include "IButton.h"
 #include <string>
 
-class Button : public IWidget
+class Button : public IButton
 {
 public:
-    Button(const std::wstring &text, int x, int y, int height, int width);
+    Button(WORD id, const std::wstring &text, int x, int y, int height, int width);
 
     bool render(HWND parent) override;
 
     void click()
     {
+        std::wstring message = L"Button with id = " + std::to_wstring(_id) + L" clicked";
         int msgboxID = MessageBox(
             NULL,
-            (LPCWSTR)L"Button clicked",
+            message.data(),
             (LPCWSTR)L"click() called",
             MB_ICONWARNING | MB_CANCELTRYCONTINUE | MB_DEFBUTTON2);
 
@@ -34,22 +36,33 @@ public:
         }
     }
 
-    // static LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
-    // {
-    //     Button *button = reinterpret_cast<Button *>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
-    //     switch (uMsg)
-    //     {
-    //     case WM_COMMAND:
-    //         if (HIWORD(wParam) == BN_CLICKED && button)
-    //         {
-    //             button->click();
-    //         }
-    //         break;
-    //     default:
-    //         return DefWindowProc(hWnd, uMsg, wParam, lParam);
-    //     }
-    //     return 0;
-    // }
+    void doubleClicked()
+    {
+        std::wstring message = L"Button with id = " + std::to_wstring(_id) + L" double clicked";
+        int msgboxID = MessageBox(
+            NULL,
+            message.data(),
+            (LPCWSTR)L"click() called",
+            MB_ICONWARNING | MB_CANCELTRYCONTINUE | MB_DEFBUTTON2);
+
+        switch (msgboxID)
+        {
+        case IDCANCEL:
+            // TODO: add code
+            break;
+        case IDTRYAGAIN:
+            // TODO: add code
+            break;
+        case IDCONTINUE:
+            // TODO: add code
+            break;
+        }
+    }
+
+    ButtonType getButtonType() override
+    {
+        return ButtonType::PushButton;
+    }
 
 private:
     std::wstring _className = L"Button";
@@ -58,5 +71,4 @@ private:
     int _y;
     int _height;
     int _width;
-    HWND _parent;
 };

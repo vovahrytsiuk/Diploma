@@ -3,8 +3,13 @@
 #define UNICODE
 #endif
 
+#include "Widgets/IWigdet.h"
+#include <memory>
+#include "Widgets/Button.h"
+
 #include <windows.h>
 #include <string>
+#include <vector>
 
 class Window
 {
@@ -19,9 +24,30 @@ public:
         wc.lpszClassName = _className.c_str();
 
         RegisterClass(&wc);
+    }
 
+    template <class Widget, typename... Args>
+    void addWidget(Args... args)
+    {
+        _widgets.push_back(std::make_unique<Widget>(WORD(_widgets.size()), args...));
+    }
+
+    void render()
+    {
+        // Render window
         create();
+        // Show Window
         show();
+        // Render Widgets
+        renderWidgets();
+    }
+
+    void renderWidgets()
+    {
+        for (auto &widget : _widgets)
+        {
+            widget->render(_hwnd);
+        }
     }
 
     bool create()
@@ -40,6 +66,8 @@ public:
             _hInstance, // Instance handle
             NULL        // Additional application data
         );
+
+        SetWindowLongPtr(_hwnd, GWLP_USERDATA, (LONG_PTR)this);
 
         return _hwnd != NULL;
     }
@@ -61,12 +89,22 @@ public:
     }
 
 private:
+    template <class Widget>
+    Widget *defineWidget(WORD id)
+    {
+        auto &widget = _widgets[id];
+        return dynamic_cast<Widget *>(widget.get());
+    }
+
+private:
     std::wstring _className = L"Window";
 
     std::wstring _title;
     bool _isShown;
     HINSTANCE _hInstance;
     HWND _hwnd;
+
+    std::vector<std::unique_ptr<IWidget>> _widgets;
 
     static LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 };

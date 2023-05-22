@@ -1,25 +1,30 @@
+#pragma once
 #ifndef UNICODE
 #define UNICODE
 #endif
 
-#include "IWigdet.h"
+#include "IButton.h"
 #include <string>
 
-class LineEdit : public IWidget
+class CheckBox : public IButton
 {
 public:
-    LineEdit(WORD id, int x, int y, int height, int width);
+    CheckBox(WORD id, const std::wstring &text, int x, int y, int height, int width);
 
-public:
     bool render(HWND parent) override;
 
-    void textChanged()
+    ButtonType getButtonType() override
     {
-        std::wstring message = L"LineEdit with id = " + std::to_wstring(_id) + L" text changer";
+        return ButtonType::CheckBox;
+    }
+
+    void stateChanged()
+    {
+        std::wstring message = L"CheckBox with id = " + std::to_wstring(_id) + L" state changed";
         int msgboxID = MessageBox(
             NULL,
             message.data(),
-            (LPCWSTR)L"textChanged() called",
+            (LPCWSTR)L"stateChanged() called",
             MB_ICONWARNING | MB_CANCELTRYCONTINUE | MB_DEFBUTTON2);
 
         switch (msgboxID)
@@ -37,7 +42,8 @@ public:
     }
 
 private:
-    std::wstring _className = L"EDIT";
+    std::wstring _className = L"Button";
+    std::wstring _text;
     int _x;
     int _y;
     int _height;

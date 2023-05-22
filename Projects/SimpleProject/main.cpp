@@ -2,7 +2,7 @@
 
 int main()
 {
-    BaseApplication app(L"Simple Project");
+    BaseApplication app;
     app.runMessageLoop();
     return 0;
 }

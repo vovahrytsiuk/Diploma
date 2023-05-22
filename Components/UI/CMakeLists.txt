@@ -6,6 +6,11 @@ set(HEADERS
     ${INCLUDE_PREFIX}/BaseApplication.h
     ${INCLUDE_PREFIX}/Window.h
     ${INCLUDE_PREFIX}/${WIDGETS_PREFIX}/Button.h
+    ${INCLUDE_PREFIX}/${WIDGETS_PREFIX}/Label.h
+    ${INCLUDE_PREFIX}/${WIDGETS_PREFIX}/LineEdit.h
+    ${INCLUDE_PREFIX}/${WIDGETS_PREFIX}/CheckBox.h
+    ${INCLUDE_PREFIX}/${WIDGETS_PREFIX}/IButton.h
+    ${INCLUDE_PREFIX}/WindowsParamsMock.h
 )
 
 set(INCLUDE_TARGET ${PROJECT_NAME}.Include)
@@ -18,13 +23,19 @@ set(SOURCES
     ${SOURCES_PREFIX}/BaseApplication.cpp
     ${SOURCES_PREFIX}/Window.cpp
     ${SOURCES_PREFIX}/${WIDGETS_PREFIX}/Button.cpp
-    # ${SOURCES_PREFIX}/${WIDGETS_PREFIX}/Label.cpp
+    ${SOURCES_PREFIX}/${WIDGETS_PREFIX}/Label.cpp
+    ${SOURCES_PREFIX}/${WIDGETS_PREFIX}/LineEdit.cpp
+    ${SOURCES_PREFIX}/${WIDGETS_PREFIX}/CheckBox.cpp
 )
 
 set(STATIC_TARGET ${PROJECT_NAME}.Static)
 add_library(${STATIC_TARGET} STATIC
     ${SOURCES}
 )
+
+if(MSVC)
+    target_compile_options(${STATIC_TARGET} PRIVATE /EHsc)
+endif()
 
 target_link_libraries(${STATIC_TARGET}
     PUBLIC
@@ -41,4 +52,5 @@ add_link_options(
     /MACHINE:X64
 )
 
-# add_subdirectory(UI.Test)
+# add_subdirectory(UI.Test)x
+

@@ -1,0 +1,115 @@
+@startuml
+
+package "UI Component" {
+  component "UI" as UIComponent
+}
+
+package "Markup Component" {
+  component "Markup" as MarkupComponent
+  interface "MarkupParser" as MarkupParserInterface
+}@startuml
+
+class Event {
+    +name: std::string
+}
+
+class EventDispatcher {
+    -eventHandlers: std::map<std::string, EventHandler>
+
+    +addEventListener(eventName: std::string, handler: EventHandler): void
+    +removeEventListener(eventName: std::string): void
+    +dispatchEvent(event: Event): void
+}
+
+class <<typedef>> EventHandler {
+    (void) operator()(const Event&): void
+}
+
+Event <|.. EventDispatcher
+EventHandler --> "1" Event
+
+@enduml
+
+UIComponent --> MarkupParserInterface: <<use>>
+UIComponent --> "Win32 API" : <<use>>
+
+MarkupComponent --> MarkupParserInterface: <<implements>>
+
+interface "MarkupParserInterface" {
+  +parseMarkupFile(filePath: String): ParsedStructure
+}
+
+class "ParsedStructure" {
+  -status: Status
+  -message: String
+  -windowParams: WindowParams
+}
+
+class "Status" {
+  +Success
+  +Warning
+  +Error
+}
+
+class "WindowParams" {
+  -height: int
+  -width: int
+  -title: String
+  -backgroundColor: String
+  -iconParams: IconParams
+  -menu: MenuDescription[]
+  -widgets: WidgetParams[]
+}
+
+class "IconParams" {
+  -path: String
+  -size: int
+}
+
+class "MenuDescription" {
+  -label: String
+  -action: Action
+}
+
+class "Action" {
+  -type: ActionType
+  -params: String[]
+}
+
+enum "ActionType" {
+  Click
+  Hover
+}
+
+class "WidgetParams" {
+  -position: Point
+  -size: Size
+  -text: String
+  -color: String
+  -font: Font
+}
+
+class "Point" {
+  -x: int
+  -y: int
+}
+
+class "Size" {
+  -width: int
+  -height: int
+}
+
+class "Font" {
+  -name: String
+  -size: int
+  -style: FontStyle
+}
+
+enum "FontStyle" {
+  Normal
+  Bold
+  Italic
+  Underline
+}
+
+@enduml

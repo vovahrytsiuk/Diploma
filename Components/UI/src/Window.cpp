@@ -1,53 +1,80 @@
 #include <UI/Window.h>
 #include <UI/Widgets/Button.h>
+#include <UI/Widgets/LineEdit.h>
+#include <UI/Widgets/CheckBox.h>
 
 LRESULT CALLBACK Window::WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-    switch (uMsg)
+    Window *pThis = NULL;
+    if (uMsg == WM_NCCREATE)
     {
-    case WM_DESTROY:
-        PostQuitMessage(0);
-        return 0;
-
-    case WM_PAINT:
-    {
-        PAINTSTRUCT ps;
-        HDC hdc = BeginPaint(hwnd, &ps);
-
-        // All painting occurs here, between BeginPaint and EndPaint.
-
-        FillRect(hdc, &ps.rcPaint, (HBRUSH)(COLOR_WINDOW + 1));
-
-        EndPaint(hwnd, &ps);
-        return 0;
     }
-    case WM_COMMAND:
+    else
+    {
+        pThis = (Window *)GetWindowLongPtr(hwnd, GWLP_USERDATA);
+    }
 
-        Button *button = reinterpret_cast<Button *>(GetWindowLongPtr(hwnd, GWLP_USERDATA));
-
-        if (HIWORD(wParam) == BN_CLICKED && button)
+    if (pThis)
+    {
+        switch (uMsg)
         {
-            int msgboxID = MessageBox(
-                NULL,
-                (LPCWSTR)L"Button clicked",
-                (LPCWSTR)L"click() called",
-                MB_ICONWARNING | MB_CANCELTRYCONTINUE | MB_DEFBUTTON2);
+        case WM_DESTROY:
+            PostQuitMessage(0);
+            return 0;
 
-            switch (msgboxID)
+        case WM_PAINT:
+        {
+            PAINTSTRUCT ps;
+            HDC hdc = BeginPaint(hwnd, &ps);
+
+            // All painting occurs here, between BeginPaint and EndPaint.
+
+            FillRect(hdc, &ps.rcPaint, (HBRUSH)(COLOR_WINDOW + 1));
+
+            EndPaint(hwnd, &ps);
+            return 0;
+        }
+        case WM_COMMAND:
+            switch (HIWORD(wParam))
             {
-            case IDCANCEL:
-                // TODO: add code
-                break;
-            case IDTRYAGAIN:
-                // TODO: add code
-                break;
-            case IDCONTINUE:
-                // TODO: add code
+            case BN_CLICKED:
+            {
+                auto *button = pThis->defineWidget<IButton>(LOWORD(wParam));
+                if (button)
+                {
+                    if (button->getButtonType() == ButtonType::PushButton)
+                    {
+                        (dynamic_cast<Button *>(button))->click();
+                    }
+                    else if (button->getButtonType() == ButtonType::CheckBox)
+                    {
+                        (dynamic_cast<CheckBox *>(button))->stateChanged();
+                    }
+                }
                 break;
             }
-            button->click();
+            case BN_DBLCLK:
+            {
+                auto *button = pThis->defineWidget<Button>(LOWORD(wParam));
+                if (button)
+                {
+                    button->doubleClicked();
+                }
+                break;
+            }
+            case EN_CHANGE:
+            {
+                auto *lineEdit = pThis->defineWidget<LineEdit>(LOWORD(wParam));
+                if (lineEdit)
+                {
+                    lineEdit->textChanged();
+                }
+                break;
+            }
+            }
+            return 0;
         }
-        break;
     }
+
     return DefWindowProc(hwnd, uMsg, wParam, lParam);
 }
