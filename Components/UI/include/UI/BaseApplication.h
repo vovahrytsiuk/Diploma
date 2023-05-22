@@ -15,18 +15,18 @@
 WindowParams defaultParams{
     L"Window Title",
     { // button
-        {L"It's button", 10, 10, 50, 150},
-        {L"Button 2", 10, 100, 50, 150}
+        {1, L"It's button", 10, 10, 50, 150},
+        {2, L"Button 2", 10, 100, 50, 150}
     },
     { // static controls
-        {L"Label", 10, 200, 50, 150}
+        {3, L"Label", 10, 200, 50, 150}
     },
     { // line edits
-        {250, 250, 50, 150}
+        {4, 250, 250, 50, 150}
     },
     { // check boxes
-        {L"CheckBox1", 500, 300, 50, 150},
-        {L"CheckBox2", 500, 500, 50, 150}
+        {5, L"CheckBox1", 500, 300, 50, 150},
+        {6, L"CheckBox2", 500, 500, 50, 150}
     },
 };
 // clang-format on
@@ -40,22 +40,22 @@ public:
     {
         for (const auto &button : params._buttons)
         {
-            _mainWindow.addWidget<Button>(button._text, button._x, button._y, button._height, button._width);
+            _mainWindow.addWidget<Button>(button._id, button._text, button._x, button._y, button._height, button._width);
         }
 
         for (const auto &label : params._labels)
         {
-            _mainWindow.addWidget<Label>(label._text, label._x, label._y, label._height, label._width);
+            _mainWindow.addWidget<Label>(label._id, label._text, label._x, label._y, label._height, label._width);
         }
 
         for (const auto &lineEdit : params._lineEdits)
         {
-            _mainWindow.addWidget<LineEdit>(lineEdit._x, lineEdit._y, lineEdit._height, lineEdit._width);
+            _mainWindow.addWidget<LineEdit>(lineEdit._id, lineEdit._x, lineEdit._y, lineEdit._height, lineEdit._width);
         }
 
         for (const auto &checkBox : params._checkBoxes)
         {
-            _mainWindow.addWidget<CheckBox>(checkBox._text, checkBox._x, checkBox._y, checkBox._height, checkBox._width);
+            _mainWindow.addWidget<CheckBox>(checkBox._id, checkBox._text, checkBox._x, checkBox._y, checkBox._height, checkBox._width);
         }
 
         _mainWindow.render();

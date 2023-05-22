@@ -6,10 +6,12 @@
 #include "Widgets/IWigdet.h"
 #include <memory>
 #include "Widgets/Button.h"
+#include "Icon.h"
 
 #include <windows.h>
 #include <string>
 #include <vector>
+#include <unordered_map>
 
 class Window
 {
@@ -27,9 +29,9 @@ public:
     }
 
     template <class Widget, typename... Args>
-    void addWidget(Args... args)
+    void addWidget(WORD id, Args... args)
     {
-        _widgets.push_back(std::make_unique<Widget>(WORD(_widgets.size()), args...));
+        _widgets[id] = (std::make_unique<Widget>(id, args...));
     }
 
     void render()
@@ -46,7 +48,7 @@ public:
     {
         for (auto &widget : _widgets)
         {
-            widget->render(_hwnd);
+            widget.second->render(_hwnd);
         }
     }
 
@@ -68,6 +70,10 @@ public:
         );
 
         SetWindowLongPtr(_hwnd, GWLP_USERDATA, (LONG_PTR)this);
+
+        SetClassLongPtr(_hwnd,      // window handle
+                        GCLP_HICON, // changes icon
+                        (LONG_PTR)_icon.getHandle());
 
         return _hwnd != NULL;
     }
@@ -103,8 +109,9 @@ private:
     bool _isShown;
     HINSTANCE _hInstance;
     HWND _hwnd;
+    Icon _icon;
 
-    std::vector<std::unique_ptr<IWidget>> _widgets;
+    std::unordered_map<WORD, std::unique_ptr<IWidget>> _widgets;
 
     static LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 };

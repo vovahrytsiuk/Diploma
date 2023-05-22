@@ -3,6 +3,8 @@
 #define UNICODE
 #endif
 
+#include "../Font.h"
+
 #include <windows.h>
 
 class IWidget
@@ -10,6 +12,7 @@ class IWidget
 protected:
     HWND _hwnd;
     WORD _id;
+    Font _font;
 
 public:
     virtual bool render(HWND parent) = 0;

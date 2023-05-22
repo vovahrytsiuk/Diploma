@@ -1,0 +1,29 @@
+#pragma once
+#ifndef UNICODE
+#define UNICODE
+#endif
+
+#include <Windows.h>
+
+class Icon
+{
+public:
+    Icon()
+    {
+        _handle = LoadIcon(NULL, IDI_QUESTION);
+    }
+    Icon(const Icon &) = delete;
+    Icon(Icon &&) = default;
+
+    auto getHandle() const
+    {
+        return _handle;
+    }
+    ~Icon()
+    {
+        DestroyIcon(_handle);
+    }
+
+private:
+    HICON _handle;
+};

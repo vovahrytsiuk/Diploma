@@ -5,6 +5,7 @@
 
 struct ButtonParams
 {
+    unsigned short _id;
     std::wstring _text;
     int _x;
     int _y;
@@ -14,6 +15,7 @@ struct ButtonParams
 
 struct LabelParams
 {
+    unsigned short _id;
     std::wstring _text;
     int _x;
     int _y;
@@ -23,6 +25,7 @@ struct LabelParams
 
 struct LineEditParams
 {
+    unsigned short _id;
     int _x;
     int _y;
     int _height;
@@ -31,6 +34,7 @@ struct LineEditParams
 
 struct CheckBoxParams
 {
+    unsigned short _id;
     std::wstring _text;
     int _x;
     int _y;
