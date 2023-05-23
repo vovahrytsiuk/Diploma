@@ -40,22 +40,22 @@ public:
     {
         for (const auto &button : params._buttons)
         {
-            _mainWindow.addWidget<Button>(button._id, button._text, button._x, button._y, button._height, button._width);
+            _mainWindow.addWidget<Button>(button._id, Size(button._height, button._width), Text(button._text), button._x, button._y);
         }
 
         for (const auto &label : params._labels)
         {
-            _mainWindow.addWidget<Label>(label._id, label._text, label._x, label._y, label._height, label._width);
+            _mainWindow.addWidget<Label>(label._id, Size(label._height, label._width), Text(label._text), label._x, label._y);
         }
 
         for (const auto &lineEdit : params._lineEdits)
         {
-            _mainWindow.addWidget<LineEdit>(lineEdit._id, lineEdit._x, lineEdit._y, lineEdit._height, lineEdit._width);
+            _mainWindow.addWidget<LineEdit>(lineEdit._id, Size(lineEdit._height, lineEdit._width), lineEdit._x, lineEdit._y);
         }
 
         for (const auto &checkBox : params._checkBoxes)
         {
-            _mainWindow.addWidget<CheckBox>(checkBox._id, checkBox._text, checkBox._x, checkBox._y, checkBox._height, checkBox._width);
+            _mainWindow.addWidget<CheckBox>(checkBox._id, Size(checkBox._height, checkBox._width), Text(checkBox._text), checkBox._x, checkBox._y);
         }
 
         _mainWindow.render();

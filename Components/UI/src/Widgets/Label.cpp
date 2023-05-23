@@ -1,7 +1,7 @@
 #include "UI/Widgets/Label.h"
 
-Label::Label(WORD id, const Text &text, int x, int y, int height, int width)
-    : IWidget(id, text), _x{x}, _y{y}, _height{height}, _width{width}
+Label::Label(WORD id, const Size &size, const Text &text, int x, int y)
+    : IWidget(id, size, text), _x{x}, _y{y}
 {
 }
 
@@ -13,8 +13,8 @@ bool Label::render(HWND parent)
         WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON, // Styles
         _x,                                                    // x position
         _y,                                                    // y position
-        _width,                                                // Button width
-        _height,                                               // Button height
+        _size.getWidth(),                                      // Button width
+        _size.getHeight(),                                     // Button height
         parent,                                                // Parent window
         // (HMENU)params.get_mID(),                               // No menu.
         // NULL,

@@ -1,7 +1,7 @@
 #include "UI/Widgets/LineEdit.h"
 
-LineEdit::LineEdit(WORD id, int x, int y, int height, int width, const Text &text)
-    : IWidget(id, text), _x{x}, _y{y}, _height{height}, _width{width}
+LineEdit::LineEdit(WORD id, const Size &size, int x, int y, const Text &text)
+    : IWidget(id, size, text), _x{x}, _y{y}
 {
 }
 
@@ -14,8 +14,8 @@ bool LineEdit::render(HWND parent)
         WS_CHILD | WS_VISIBLE | WS_BORDER | ES_AUTOHSCROLL, // Control style
         _x,                                                 // Control x-position
         _y,                                                 // Control y-position
-        _width,                                             // Control width
-        _height,                                            // Control height
+        _size.getWidth(),                                   // Control width
+        _size.getHeight(),                                  // Control height
         parent,                                             // Parent window or dialog handle
         (HMENU)_id,                                         // Control identifier
         GetModuleHandle(NULL),                              // Instance handle

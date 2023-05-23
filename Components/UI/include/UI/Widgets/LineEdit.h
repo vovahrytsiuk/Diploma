@@ -9,7 +9,7 @@
 class LineEdit : public IWidget
 {
 public:
-    LineEdit(WORD id, int x, int y, int height, int width, const Text &text = Text());
+    LineEdit(WORD id, const Size &size, int x, int y, const Text &text = Text());
 
 public:
     bool render(HWND parent) override;
@@ -41,8 +41,6 @@ private:
     std::wstring _className = L"EDIT";
     int _x;
     int _y;
-    int _height;
-    int _width;
 
 public:
     Event _textChanged;

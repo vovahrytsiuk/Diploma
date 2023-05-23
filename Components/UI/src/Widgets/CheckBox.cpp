@@ -1,7 +1,7 @@
 #include "UI/Widgets/CheckBox.h"
 
-CheckBox::CheckBox(WORD id, const Text &text, int x, int y, int height, int width)
-    : IButton(id, text), _x{x}, _y{y}, _height{height}, _width{width}
+CheckBox::CheckBox(WORD id, const Size &size, const Text &text, int x, int y)
+    : IButton(id, size, text), _x{x}, _y{y}
 {
     _stateChanged.connect([this]()
                           { this->changeState(); });
@@ -15,11 +15,10 @@ bool CheckBox::render(HWND parent)
         WS_CHILD | WS_VISIBLE | BS_CHECKBOX, // Styles
         _x,                                  // x position
         _y,                                  // y position
-        _width,                              // Button width
-        _height,                             // Button height
+        _size.getWidth(),                    // Button width
+        _size.getHeight(),                   // Button height
         parent,                              // Parent window
         (HMENU)_id,                          // No menu.
-        // NULL,
         (HINSTANCE)GetWindowLongPtr(parent, GWLP_HINSTANCE),
         NULL); // Pointer not needed.
 

@@ -1,7 +1,7 @@
 #include "UI/Widgets/Button.h"
 
-Button::Button(WORD id, const Text &text, int x, int y, int height, int width)
-    : IButton(id, text), _x{x}, _y{y}, _height{height}, _width{width}
+Button::Button(WORD id, const Size &size, const Text &text, int x, int y)
+    : IButton(id, size, text), _x{x}, _y{y}
 {
 }
 
@@ -13,8 +13,8 @@ bool Button::render(HWND parent)
         WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON | BS_NOTIFY, // Styles
         _x,                                                                // x position
         _y,                                                                // y position
-        _width,                                                            // Button width
-        _height,                                                           // Button height
+        _size.getWidth(),                                                  // Button width
+        _size.getHeight(),                                                 // Button height
         parent,                                                            // Parent window
         (HMENU)_id,                                                        // No menu.
         // NULL,

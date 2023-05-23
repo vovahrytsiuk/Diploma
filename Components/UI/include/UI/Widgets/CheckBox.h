@@ -10,7 +10,7 @@
 class CheckBox : public IButton
 {
 public:
-    CheckBox(WORD id, const Text &text, int x, int y, int height, int width);
+    CheckBox(WORD id, const Size &size, const Text &text, int x, int y);
 
     bool render(HWND parent) override;
 
@@ -34,8 +34,6 @@ private:
     std::wstring _className = L"Button";
     int _x;
     int _y;
-    int _height;
-    int _width;
 
 public:
     Event _stateChanged;
