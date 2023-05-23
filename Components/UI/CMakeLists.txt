@@ -7,6 +7,7 @@ set(HEADERS
     ${INCLUDE_PREFIX}/Window.h
     ${INCLUDE_PREFIX}/Icon.h
     ${INCLUDE_PREFIX}/Font.h
+    ${INCLUDE_PREFIX}/Event.h
     ${INCLUDE_PREFIX}/${WIDGETS_PREFIX}/Button.h
     ${INCLUDE_PREFIX}/${WIDGETS_PREFIX}/Label.h
     ${INCLUDE_PREFIX}/${WIDGETS_PREFIX}/LineEdit.h

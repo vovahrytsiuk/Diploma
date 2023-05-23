@@ -44,11 +44,11 @@ LRESULT CALLBACK Window::WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM 
                 {
                     if (button->getButtonType() == ButtonType::PushButton)
                     {
-                        (dynamic_cast<Button *>(button))->click();
+                        (dynamic_cast<Button *>(button))->_click.emit();
                     }
                     else if (button->getButtonType() == ButtonType::CheckBox)
                     {
-                        (dynamic_cast<CheckBox *>(button))->stateChanged();
+                        (dynamic_cast<CheckBox *>(button))->_stateChanged.emit();
                     }
                 }
                 break;
@@ -58,7 +58,7 @@ LRESULT CALLBACK Window::WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM 
                 auto *button = pThis->defineWidget<Button>(LOWORD(wParam));
                 if (button)
                 {
-                    button->doubleClicked();
+                    button->_doubleClick.emit();
                 }
                 break;
             }
@@ -67,7 +67,7 @@ LRESULT CALLBACK Window::WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM 
                 auto *lineEdit = pThis->defineWidget<LineEdit>(LOWORD(wParam));
                 if (lineEdit)
                 {
-                    lineEdit->textChanged();
+                    lineEdit->_textChanged.emit();
                 }
                 break;
             }

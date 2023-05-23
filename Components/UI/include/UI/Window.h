@@ -34,6 +34,16 @@ public:
         _widgets[id] = (std::make_unique<Widget>(id, args...));
     }
 
+    template <class Widget>
+    Widget *findWidgetById(WORD id)
+    {
+        if (_widgets.count(id))
+        {
+            return dynamic_cast<Widget *>(_widgets.at(id).get());
+        }
+        return nullptr;
+    }
+
     void render()
     {
         // Render window

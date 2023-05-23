@@ -3,7 +3,7 @@
 #define UNICODE
 #endif
 
-#include "../Font.h"
+#include "../Text.h"
 
 #include <windows.h>
 
@@ -12,11 +12,11 @@ class IWidget
 protected:
     HWND _hwnd;
     WORD _id;
-    Font _font;
+    Text _text;
 
 public:
     virtual bool render(HWND parent) = 0;
-    IWidget(WORD id) : _hwnd(NULL), _id{id} {}
+    IWidget(WORD id, const Text &text) : _hwnd(NULL), _id{id}, _text{text} {}
     virtual ~IWidget() = default;
     HWND get_hwnd() const { return _hwnd; }
 };

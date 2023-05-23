@@ -4,48 +4,39 @@
 #endif
 
 #include "IButton.h"
+#include "../Event.h"
 #include <string>
 
 class CheckBox : public IButton
 {
 public:
-    CheckBox(WORD id, const std::wstring &text, int x, int y, int height, int width);
+    CheckBox(WORD id, const Text &text, int x, int y, int height, int width);
 
     bool render(HWND parent) override;
+
+    bool isChecked() const
+    {
+        return (SendMessage(_hwnd, BM_GETCHECK, 0, 0) == BST_CHECKED);
+    }
 
     ButtonType getButtonType() override
     {
         return ButtonType::CheckBox;
     }
 
-    void stateChanged()
+private:
+    void changeState()
     {
-        std::wstring message = L"CheckBox with id = " + std::to_wstring(_id) + L" state changed";
-        int msgboxID = MessageBox(
-            NULL,
-            message.data(),
-            (LPCWSTR)L"stateChanged() called",
-            MB_ICONWARNING | MB_CANCELTRYCONTINUE | MB_DEFBUTTON2);
-
-        switch (msgboxID)
-        {
-        case IDCANCEL:
-            // TODO: add code
-            break;
-        case IDTRYAGAIN:
-            // TODO: add code
-            break;
-        case IDCONTINUE:
-            // TODO: add code
-            break;
-        }
+        SendMessage(_hwnd, BM_SETCHECK, (isChecked() ? BST_UNCHECKED : BST_CHECKED), 0);
     }
 
 private:
     std::wstring _className = L"Button";
-    std::wstring _text;
     int _x;
     int _y;
     int _height;
     int _width;
+
+public:
+    Event _stateChanged;
 };

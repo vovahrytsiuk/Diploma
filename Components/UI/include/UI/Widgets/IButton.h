@@ -15,7 +15,7 @@ enum class ButtonType
 class IButton : public IWidget
 {
 public:
-    IButton(WORD id) : IWidget(id) {}
+    IButton(WORD id, const Text &text) : IWidget(id, text) {}
     virtual ButtonType getButtonType() = 0;
 
 private:
