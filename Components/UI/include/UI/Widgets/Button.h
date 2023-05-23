@@ -10,19 +10,15 @@
 class Button : public IButton
 {
 public:
-    Button(WORD id, const Size &size, const Text &text, int x, int y);
-
-    bool render(HWND parent) override;
+    Button(WORD id, const Size &size, const Position &position, const Text &text);
 
     ButtonType getButtonType() override
     {
         return ButtonType::PushButton;
     }
 
-private:
-    std::wstring _className = L"Button";
-    int _x;
-    int _y;
+protected:
+    int getStyles() override;
 
 public:
     Event _click;

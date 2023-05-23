@@ -15,8 +15,14 @@ enum class ButtonType
 class IButton : public IWidget
 {
 public:
-    IButton(WORD id, const Size& size, const Text &text) : IWidget(id, size, text) {}
+    IButton(WORD id, const Size &size, const Position &position, const Text &text) : IWidget(id, size, position, text) {}
     virtual ButtonType getButtonType() = 0;
+
+protected:
+    std::wstring getClassName() override
+    {
+        return L"Button";
+    }
 
 private:
 };

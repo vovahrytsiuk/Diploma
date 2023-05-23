@@ -1,28 +1,11 @@
 #include "UI/Widgets/Label.h"
 
-Label::Label(WORD id, const Size &size, const Text &text, int x, int y)
-    : IWidget(id, size, text), _x{x}, _y{y}
+Label::Label(WORD id, const Size &size, const Position &position, const Text &text)
+    : IWidget(id, size, position, text)
 {
 }
 
-bool Label::render(HWND parent)
+int Label::getStyles()
 {
-    _hwnd = CreateWindow(
-        _className.c_str(),                                    // Predefined class; Unicode assumed
-        PCWSTR(_text.getText().c_str()),                       // Button text
-        WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON, // Styles
-        _x,                                                    // x position
-        _y,                                                    // y position
-        _size.getWidth(),                                      // Button width
-        _size.getHeight(),                                     // Button height
-        parent,                                                // Parent window
-        // (HMENU)params.get_mID(),                               // No menu.
-        // NULL,
-        (HMENU)_id,
-        (HINSTANCE)GetWindowLongPtr(parent, GWLP_HINSTANCE),
-        NULL); // Pointer not needed.
-
-    SendMessage(_hwnd, WM_SETFONT, (WPARAM)_text.getFont().getHandle(), MAKELPARAM(TRUE, 0));
-
-    return (_hwnd ? TRUE : FALSE);
+    return WS_TABSTOP | WS_VISIBLE | WS_CHILD;
 }

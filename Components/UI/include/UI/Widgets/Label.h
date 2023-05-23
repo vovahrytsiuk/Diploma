@@ -9,13 +9,16 @@
 class Label : public IWidget
 {
 public:
-    Label(WORD id, const Size &size, const Text &text, int x, int y);
+    Label(WORD id, const Size &size, const Position &position, const Text &text);
 
-public:
-    bool render(HWND parent) override;
+protected:
+    std::wstring getClassName() override
+    {
+        return L"STATIC";
+    }
+
+    int getStyles() override;
 
 private:
     std::wstring _className = L"Static";
-    int _x;
-    int _y;
 };
