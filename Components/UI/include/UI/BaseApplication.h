@@ -15,18 +15,27 @@
 WindowParams defaultParams{
     L"Window Title",
     { // button
-        {1, L"It's button", 10, 10, 50, 150},
-        {2, L"Button 2", 10, 100, 50, 150}
+        {1, L"Button 1 (Only clickable)", 25, 130, 50, 250},
+        {2, L"Button 2 (Only doubleclickable)", 25, 190, 50, 250},
+        {3, L"Button 3 (Multiply)", 25, 250, 50, 250},
+        {4, L"Button 4 (Noone event supported)", 25, 310, 50, 250},
     },
     { // static controls
-        {3, L"Label", 10, 200, 50, 150}
+        {5, L"Button 1 clicked 0 times", 300, 130, 50, 400},
+        {6, L"Button 2 clicked 0 times", 300, 190, 50, 400},
+        {7, L"Button 3 clicked 0 times", 300, 250, 50, 400},
+        {8, L"Button 4 clicked 0 times", 300, 310, 50, 400},
+        {9, L"Multiplier:", 25, 70, 50, 250},
+        {11, L"1", 300, 370, 50, 400},
+        {12, L"Copied multiplier:", 25, 370, 50, 250}
     },
     { // line edits
-        {4, 250, 250, 50, 150}
+        {10, 300, 70, 50, 400},
+        
     },
     { // check boxes
-        {5, L"CheckBox1", 500, 300, 50, 150},
-        {6, L"CheckBox2", 500, 500, 50, 150}
+        // {5, L"CheckBox1", 500, 300, 50, 150},
+        // {6, L"CheckBox2", 500, 500, 50, 150}
     },
 };
 // clang-format on
@@ -50,7 +59,7 @@ public:
 
         for (const auto &lineEdit : params._lineEdits)
         {
-            _mainWindow.addWidget<LineEdit>(lineEdit._id, Size(lineEdit._height, lineEdit._width), Position(lineEdit._x, lineEdit._y));
+            _mainWindow.addWidget<LineEdit>(lineEdit._id, Size(lineEdit._height, lineEdit._width), Position(lineEdit._x, lineEdit._y), Text(L"1"));
         }
 
         for (const auto &checkBox : params._checkBoxes)

@@ -42,6 +42,37 @@ public:
 
         return _hwnd != NULL;
     }
+
+    std::wstring getText()
+    {
+        int length = GetWindowTextLengthW(_hwnd);
+        if (length == 0)
+            return L"";
+
+        // Allocate memory for the text
+        wchar_t *buffer = new wchar_t[length + 1];
+
+        // Retrieve the text of the static control
+        GetWindowTextW(_hwnd, buffer, length + 1);
+
+        // Convert to wstring
+        std::wstring text(buffer);
+
+        // Clean up and return the text
+        delete[] buffer;
+        return text;
+    }
+
+    int getId()
+    {
+        return _id;
+    }
+
+    void setText(const std::wstring &text)
+    {
+        SetWindowText(_hwnd, text.c_str());
+    }
+
     IWidget(WORD id, const Size &size, const Position &position, const Text &text) : _hwnd(NULL), _id{id}, _size{size}, _position{position}, _text{text} {}
     virtual ~IWidget() = default;
     HWND get_hwnd() const { return _hwnd; }
