@@ -6,8 +6,11 @@
 #include "../Text.h"
 #include "../Size.h"
 #include "../Position.h"
+// #include "../Window.h"
 
 #include <windows.h>
+
+class Window;
 
 class IWidget
 {
@@ -22,26 +25,7 @@ protected:
     virtual int getStyles() = 0;
 
 public:
-    virtual bool render(HWND parent)
-    {
-        _hwnd = CreateWindowEx(
-            0,
-            getClassName().c_str(),          // Predefined class; Unicode assumed
-            PCWSTR(_text.getText().c_str()), // Text
-            getStyles(),                     // Styles
-            _position.getX(),                // x position
-            _position.getY(),                // y position
-            _size.getWidth(),                // Width
-            _size.getHeight(),               // Height
-            parent,                          // Parent window
-            (HMENU)_id,                      // No menu.
-            (HINSTANCE)GetWindowLongPtr(parent, GWLP_HINSTANCE),
-            NULL); // Pointer not needed.
-
-        SendMessage(_hwnd, WM_SETFONT, (WPARAM)_text.getFont().getHandle(), MAKELPARAM(TRUE, 0));
-
-        return _hwnd != NULL;
-    }
+    virtual bool render(Window &parent);
 
     std::wstring getText()
     {

@@ -13,6 +13,9 @@ set(HEADERS
     ${INCLUDE_PREFIX}/${WIDGETS_PREFIX}/LineEdit.h
     ${INCLUDE_PREFIX}/${WIDGETS_PREFIX}/CheckBox.h
     ${INCLUDE_PREFIX}/${WIDGETS_PREFIX}/IButton.h
+    ${INCLUDE_PREFIX}/${WIDGETS_PREFIX}/FieldEdit.h
+    ${INCLUDE_PREFIX}/${WIDGETS_PREFIX}/TrackBar.h
+    ${INCLUDE_PREFIX}/${WIDGETS_PREFIX}/SpinBox.h
     ${INCLUDE_PREFIX}/WindowsParamsMock.h
 )
 
@@ -29,6 +32,10 @@ set(SOURCES
     ${SOURCES_PREFIX}/${WIDGETS_PREFIX}/Label.cpp
     ${SOURCES_PREFIX}/${WIDGETS_PREFIX}/LineEdit.cpp
     ${SOURCES_PREFIX}/${WIDGETS_PREFIX}/CheckBox.cpp
+    ${SOURCES_PREFIX}/${WIDGETS_PREFIX}/FieldEdit.cpp
+    ${SOURCES_PREFIX}/${WIDGETS_PREFIX}/TrackBar.cpp
+    ${SOURCES_PREFIX}/${WIDGETS_PREFIX}/SpinBox.cpp
+    ${SOURCES_PREFIX}/${WIDGETS_PREFIX}/IWidget.cpp
 )
 
 set(STATIC_TARGET ${PROJECT_NAME}.Static)
@@ -43,6 +50,7 @@ endif()
 target_link_libraries(${STATIC_TARGET}
     PUBLIC
         ${INCLUDE_TARGET}
+        Comctl32
     PRIVATE
         Markup.Static
 )

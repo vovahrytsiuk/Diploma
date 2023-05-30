@@ -39,37 +39,37 @@ LRESULT CALLBACK Window::WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM 
             {
             case BN_CLICKED:
             {
-                auto *button = pThis->defineWidget<IButton>(LOWORD(wParam));
-                if (button)
-                {
-                    if (button->getButtonType() == ButtonType::PushButton)
-                    {
-                        (dynamic_cast<Button *>(button))->_click.emit();
-                    }
-                    else if (button->getButtonType() == ButtonType::CheckBox)
-                    {
-                        (dynamic_cast<CheckBox *>(button))->_stateChanged.emit();
-                    }
-                }
-                break;
+                // auto *button = pThis->defineWidget<IButton>(LOWORD(wParam));
+                // if (button)
+                // {
+                //     if (button->getButtonType() == ButtonType::PushButton)
+                //     {
+                //         (dynamic_cast<Button *>(button))->_click.emit();
+                //     }
+                //     else if (button->getButtonType() == ButtonType::CheckBox)
+                //     {
+                //         (dynamic_cast<CheckBox *>(button))->_stateChanged.emit();
+                //     }
+                // }
+                // break;
             }
             case BN_DBLCLK:
             {
-                auto *button = pThis->defineWidget<Button>(LOWORD(wParam));
-                if (button)
-                {
-                    button->_doubleClick.emit();
-                }
-                break;
+                // auto *button = pThis->defineWidget<Button>(LOWORD(wParam));
+                // if (button)
+                // {
+                //     button->_doubleClick.emit();
+                // }
+                // break;
             }
             case EN_CHANGE:
             {
-                auto *lineEdit = pThis->defineWidget<LineEdit>(LOWORD(wParam));
-                if (lineEdit)
-                {
-                    lineEdit->_textChanged.emit();
-                }
-                break;
+                // auto *lineEdit = pThis->defineWidget<LineEdit>(LOWORD(wParam));
+                // if (lineEdit)
+                // {
+                //     lineEdit->_textChanged.emit();
+                // }
+                // break;
             }
             }
             return 0;

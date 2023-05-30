@@ -12,6 +12,7 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
+#include <stdexcept>
 
 class Window
 {
@@ -56,9 +57,9 @@ public:
 
     void renderWidgets()
     {
-        for (auto &widget : _widgets)
+        for (const auto &[key, value] : _widgets)
         {
-            widget.second->render(_hwnd);
+            value->render(*this);
         }
     }
 
@@ -102,6 +103,11 @@ public:
     HWND getHandle()
     {
         return _hwnd;
+    }
+
+    auto getHinstance()
+    {
+        return _hInstance;
     }
 
 private:
