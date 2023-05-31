@@ -1,7 +1,7 @@
 #include "UI/Widgets/CheckBox.h"
 
-CheckBox::CheckBox(WORD id, const Size &size, const Position &position, const Text &text)
-    : IButton(id, size, position, text)
+CheckBox::CheckBox(WORD id, const std::string &name, const Size &size, const Position &position, const Text &text)
+    : IButton(id, name, size, position, text)
 {
     _stateChanged.connect([this]()
                           { this->changeState(); });

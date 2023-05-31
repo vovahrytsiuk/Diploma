@@ -1,6 +1,4 @@
-#ifndef UNICODE
-#define UNICODE
-#endif
+#pragma once
 
 #include "IWigdet.h"
 #include "../Event.h"
@@ -9,16 +7,17 @@
 class FieldEdit : public IWidget
 {
 public:
-    FieldEdit(WORD id, const Size &size, const Position &position, const Text &text = Text());
+    FieldEdit(WORD id, const std::string &name, const Size &size, const Position &position, const Text &text = Text(), bool multiline = false);
 
 protected:
-    std::wstring getClassName() override
+    std::string getClassName() override
     {
-        return L"EDIT";
+        return "EDIT";
     }
 
     int getStyles() override;
 
 public:
+    bool _multiline;
     Event _textChanged;
 };

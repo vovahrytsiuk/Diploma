@@ -1,7 +1,7 @@
 #include "UI/Widgets/Button.h"
 
-Button::Button(WORD id, const Size &size, const Position &position, const Text &text)
-    : IButton(id, size, position, text)
+Button::Button(WORD id, const std::string &name, const Size &size, const Position &position, const Text &text)
+    : IButton(id, name, size, position, text)
 {
 }
 

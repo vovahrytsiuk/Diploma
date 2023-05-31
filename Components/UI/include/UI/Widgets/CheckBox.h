@@ -1,7 +1,4 @@
 #pragma once
-#ifndef UNICODE
-#define UNICODE
-#endif
 
 #include "IButton.h"
 #include "../Event.h"
@@ -10,7 +7,7 @@
 class CheckBox : public IButton
 {
 public:
-    CheckBox(WORD id, const Size &size, const Position &position, const Text &text);
+    CheckBox(WORD id, const std::string &name, const Size &size, const Position &position, const Text &text);
 
     bool isChecked() const
     {

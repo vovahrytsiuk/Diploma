@@ -1,12 +1,8 @@
 #pragma once
-#ifndef UNICODE
-#define UNICODE
-#endif
 
 #include "../Text.h"
 #include "../Size.h"
 #include "../Position.h"
-// #include "../Window.h"
 
 #include <windows.h>
 
@@ -17,30 +13,32 @@ class IWidget
 protected:
     HWND _hwnd;
     WORD _id;
+    std::string _name;
     Size _size;
     Position _position;
     Text _text;
 
-    virtual std::wstring getClassName() = 0;
+    virtual std::string getClassName() = 0;
     virtual int getStyles() = 0;
+    virtual int getExStyle();
 
 public:
     virtual bool render(Window &parent);
 
-    std::wstring getText()
+    std::string getText()
     {
         int length = GetWindowTextLengthW(_hwnd);
         if (length == 0)
-            return L"";
+            return "";
 
         // Allocate memory for the text
-        wchar_t *buffer = new wchar_t[length + 1];
+        char *buffer = new char[length + 1];
 
         // Retrieve the text of the static control
-        GetWindowTextW(_hwnd, buffer, length + 1);
+        GetWindowText(_hwnd, buffer, length + 1);
 
         // Convert to wstring
-        std::wstring text(buffer);
+        std::string text(buffer);
 
         // Clean up and return the text
         delete[] buffer;
@@ -52,12 +50,17 @@ public:
         return _id;
     }
 
-    void setText(const std::wstring &text)
+    std::string getName() const
+    {
+        return _name;
+    }
+
+    void setText(const std::string &text)
     {
         SetWindowText(_hwnd, text.c_str());
     }
 
-    IWidget(WORD id, const Size &size, const Position &position, const Text &text) : _hwnd(NULL), _id{id}, _size{size}, _position{position}, _text{text} {}
+    IWidget(WORD id, const std::string &name, const Size &size, const Position &position, const Text &text) : _hwnd(NULL), _id{id}, _name{name}, _size{size}, _position{position}, _text{text} {}
     virtual ~IWidget() = default;
     HWND get_hwnd() const { return _hwnd; }
 };

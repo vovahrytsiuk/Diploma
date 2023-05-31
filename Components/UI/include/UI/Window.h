@@ -1,7 +1,4 @@
 #pragma once
-#ifndef UNICODE
-#define UNICODE
-#endif
 
 #include "Widgets/IWigdet.h"
 #include <memory>
@@ -17,8 +14,8 @@
 class Window
 {
 public:
-    Window(std::wstring title, HINSTANCE hInstance)
-        : _title{title}, _hInstance{hInstance}, _isShown{true}
+    Window(const std::string &title, const Size &size, HINSTANCE hInstance)
+        : _title{title}, _size{size}, _hInstance{hInstance}, _isShown{true}
     {
         WNDCLASS wc = {};
 
@@ -30,9 +27,11 @@ public:
     }
 
     template <class Widget, typename... Args>
-    void addWidget(WORD id, Args... args)
+    WORD addWidget(Args... args)
     {
+        WORD id = static_cast<WORD>(_widgets.size());
         _widgets[id] = (std::make_unique<Widget>(id, args...));
+        return id;
     }
 
     template <class Widget>
@@ -59,7 +58,10 @@ public:
     {
         for (const auto &[key, value] : _widgets)
         {
-            value->render(*this);
+            if (!value->render(*this))
+            {
+                throw std::runtime_error("Widget with name =\"" + value.get()->getName() + "\" not rendered");
+            }
         }
     }
 
@@ -72,7 +74,8 @@ public:
             WS_OVERLAPPEDWINDOW, // Window style
 
             // Size and position
-            CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
+            CW_USEDEFAULT, CW_USEDEFAULT,
+            _size.getWidth(), _size.getHeight(),
 
             NULL,       // Parent window
             NULL,       // Menu
@@ -94,7 +97,7 @@ public:
         ShowWindow(_hwnd, _isShown);
     }
 
-    void SetTitle(const std::wstring &title)
+    void SetTitle(const std::string &title)
     {
         _title = title;
         SetWindowText(_hwnd, _title.c_str());
@@ -119,9 +122,10 @@ private:
     }
 
 private:
-    std::wstring _className = L"Window";
+    std::string _className = "Window";
 
-    std::wstring _title;
+    std::string _title;
+    Size _size;
     bool _isShown;
     HINSTANCE _hInstance;
     HWND _hwnd;

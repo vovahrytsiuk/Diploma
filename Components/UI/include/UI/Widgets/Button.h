@@ -1,7 +1,4 @@
 #pragma once
-#ifndef UNICODE
-#define UNICODE
-#endif
 
 #include "IButton.h"
 #include "../Event.h"
@@ -10,7 +7,7 @@
 class Button : public IButton
 {
 public:
-    Button(WORD id, const Size &size, const Position &position, const Text &text);
+    Button(WORD id, const std::string &name, const Size &size, const Position &position, const Text &text);
 
     ButtonType getButtonType() override
     {

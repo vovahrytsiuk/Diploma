@@ -1,7 +1,7 @@
 #include "UI/Widgets/Label.h"
 
-Label::Label(WORD id, const Size &size, const Position &position, const Text &text)
-    : IWidget(id, size, position, text)
+Label::Label(WORD id, const std::string &name, const Size &size, const Position &position, const Text &text)
+    : IWidget(id, name, size, position, text)
 {
 }
 

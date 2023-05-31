@@ -1,78 +1,70 @@
 #pragma once
-#ifndef UNICODE
-#define UNICODE
-#endif
 
 #include "Window.h"
 #include <string>
 #include <CommCtrl.h>
 #include "Widgets/Button.h"
 #include "Widgets/Label.h"
-#include "Widgets/LineEdit.h"
 #include "Widgets/CheckBox.h"
 #include "WindowsParamsMock.h"
 #include "Widgets/FieldEdit.h"
-#include "Widgets/TrackBar.h"
 #include "Widgets/SpinBox.h"
 
-// clang-format off
-WindowParams defaultParams{
-    L"Window Title",
-    { // button
-        // {1, L"Button 1 (Only clickable)", 25, 130, 50, 250},
-        // {2, L"Button 2 (Only doubleclickable)", 25, 190, 50, 250},
-        // {3, L"Button 3 (Multiply)", 25, 250, 50, 250},
-        // {4, L"Button 4 (Noone event supported)", 25, 310, 50, 250},
-    },
-    { // static controls
-        // {5, L"Button 1 clicked 0 times", 300, 130, 50, 400},
-        // {6, L"Button 2 clicked 0 times", 300, 190, 50, 400},
-        // {7, L"Button 3 clicked 0 times", 300, 250, 50, 400},
-        // {8, L"Button 4 clicked 0 times", 300, 310, 50, 400},
-        // {9, L"Multiplier:", 25, 70, 50, 250},
-        // {11, L"1", 300, 370, 50, 400},
-        // {12, L"Copied multiplier:", 25, 370, 50, 250}
-    },
-    { // line edits
-        // {10, 300, 70, 50, 400},
+namespace
+{
+
+    // clang-format off
+    WindowParams defaultParams{
+        "Window Title",
+        600,
+        800,
         
-    },
-    { // check boxes
-        // {5, L"CheckBox1", 500, 300, 50, 150},
-        // {6, L"CheckBox2", 500, 500, 50, 150}
-    },
-};
-// clang-format on
+        { // button
+            {"Button1", "Button 1 (Only clickable)", 25, 130, 50, 250},
+            // {"Button2", "Button 2 (Only doubleclickable)", 25, 190, 50, 25},
+            // {"Button3", "Button 3 (Multiply)", 25, 250, 50, 25},
+            // {"Button4", "Button 4 (Noone event supported)", 25, 310, 50, 25},
+        },
+        { // static controls
+            {"Label1", "Button 1 clicked 0", 300, 130, 50, 400},
+            // {"Label2", "Button 2 clicked 0 times", 300, 190, 50, 400},
+            // {"Label3", "Button 3 clicked 0 times", 300, 250, 50, 400},
+            // {"Label4", "Button 4 clicked 0 times", 300, 310, 50, 400},
+            // {"Label5", "Multiplier:", 25, 70, 50, 250},
+            // {"Label6", "1", 300, 370, 50, 400},
+            // {"Label7", "Copied multiplier:", 25, 370, 50, 250}
+        },
+        { // line edits
+            {"Edit1", 10, 300, 70, 50},
+            
+        },
+        { // check boxes
+            {"CheckBox1", "CheckBox1", 500, 300, 50, 150},
+            // {"CheckBox2", "CheckBox2", 500, 500, 50, 150}
+        },
+        { // spin boxes
+            // std::string _name;
+            // int _x;
+            // int _y;
+            // int _height;
+            // int _width;
+            // int _upper;
+            // int _lower;
+            // int _default;
+            {"SpinBox1", 600, 50, 100, 200, 10, 0, 5}
+        }
+    };
+    // clang-format on
+}
 
 class BaseApplication
 {
 public:
     BaseApplication(const WindowParams &params = defaultParams)
-        : _hInstance{GetModuleHandle(NULL)}, _mainWindow{params._title, _hInstance}
+        : _hInstance{GetModuleHandle(NULL)}, _mainWindow{params._title, Size(params._height, params._width), _hInstance}
 
     {
-        // for (const auto &button : params._buttons)
-        // {
-        //     _mainWindow.addWidget<Button>(button._id, Size(button._height, button._width), Position(button._x, button._y), Text(button._text));
-        // }
-
-        // for (const auto &label : params._labels)
-        // {
-        //     _mainWindow.addWidget<Label>(label._id, Size(label._height, label._width), Position(label._x, label._y), Text(label._text));
-        // }
-
-        // for (const auto &lineEdit : params._lineEdits)
-        // {
-        //     _mainWindow.addWidget<LineEdit>(lineEdit._id, Size(lineEdit._height, lineEdit._width), Position(lineEdit._x, lineEdit._y), Text(L"1"));
-        // }
-
-        // for (const auto &checkBox : params._checkBoxes)
-        // {
-        //     _mainWindow.addWidget<CheckBox>(checkBox._id, Size(checkBox._height, checkBox._width), Position(checkBox._x, checkBox._y), Text(checkBox._text));
-        // }
-
-        // _mainWindow.addWidget<FieldEdit>(13, Size(100, 100), Position(400, 400), Text(L""));
-        _mainWindow.addWidget<SpinBox>(1, Size(30, 300), Position(300, 300), Text(L""), 100, 10, 50);
+        createMainWindowWidgets(params);
 
         _mainWindow.render();
     }
@@ -91,6 +83,25 @@ public:
     {
         return _mainWindow;
     }
+
+private:
+    template <class ParamsTypeT, typename CreatorFunc>
+    void createWidgets(const std::vector<ParamsTypeT> &params, CreatorFunc creatorFunc)
+    {
+        for (const auto &param : params)
+        {
+            (this->*creatorFunc)(param);
+        }
+    }
+
+    void createMainWindowWidgets(const WindowParams &params);
+    void createButton(const ButtonParams &params);
+    void createLabel(const LabelParams &params);
+    void createFieldEdit(const FieldEditParams &params);
+    void createSpinBox(const SpinBoxParams &params);
+    void createRadioButton(const RadioButtonParams &params);
+    void createImageField(const ImageFieldParams &params);
+    void createCkeckBox(const CheckBoxParams &params);
 
 private:
     HINSTANCE _hInstance; // Application handle

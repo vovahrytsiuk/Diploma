@@ -1,7 +1,5 @@
 #pragma once
-#ifndef UNICODE
-#define UNICODE
-#endif
+
 
 #include <functional>
 #include <vector>

@@ -1,7 +1,4 @@
 #pragma once
-#ifndef UNICODE
-#define UNICODE
-#endif
 
 #include "Font.h"
 #include <string>
@@ -9,7 +6,7 @@
 class Text final
 {
 public:
-    Text(const std::wstring &text = L"", const Font &font = Font())
+    Text(const std::string &text = "", const Font &font = Font())
         : _text{text}, _font(font)
     {
     }
@@ -25,6 +22,6 @@ public:
     }
 
 private:
-    std::wstring _text;
+    std::string _text;
     Font _font;
 };
