@@ -1,9 +1,9 @@
-#include <UI/Window.h>
-#include <iostream>
+
+#include <UI/BaseApplication.h>
 
 int main()
 {
-    // func();
-    std::cout << "Hello1\n";
+    BaseApplication app;
+    app.runMessageLoop();
     return 0;
 }

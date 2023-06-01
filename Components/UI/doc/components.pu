@@ -1,0 +1,24 @@
+@startuml
+
+skinparam component {
+    BorderColor #000000
+    ArrowColor #000000
+}
+
+package "UI Component" {
+    [UI] ..> [UiApplicationInterface] : <<implements>>
+    [UI] --> [Events] : <<uses>>  
+    [UI] --> [Win32API] : <<uses>>
+    
+    
+}
+
+package "Markup Component" {
+    [Markup]
+    [ParseMarkupFile]
+    [Markup] ..> [ParseMarkupFile] : <<implements>>
+    [ParseMarkupFile] --> [WindowParams] : <<returns>>
+}
+
+[UI] --> [Markup] : <<uses>>
+@enduml

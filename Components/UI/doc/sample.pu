@@ -1,0 +1,61 @@
+@startuml
+class Window {
+  -HWND handle
+  -std::vector<Control*> childControls
+  +create()
+  +show()
+  +hide()
+  +destroy()
+  +handleMessage(message: UINT, wParam: WPARAM, lParam: LPARAM)
+}
+
+class Control {
+  -HWND handle
+  -Window* parent
+  -int x
+  -int y
+  -int width
+  -int height
+  +create()
+  +show()
+  +hide()
+  +destroy()
+  +handleMessage(message: UINT, wParam: WPARAM, lParam: LPARAM)
+}
+
+class Button {
+  -std::string label
+  +click()
+}
+
+class TextBox {
+  -std::string text
+  +textChanged()
+}
+
+class Label {
+  -std::string text
+  -HFONT font
+  -COLORREF color
+}
+
+class Menu {
+  -std::vector<MenuItem*> items
+  +create()
+  +show()
+  +hide()
+  +handleCommand(commandId: int)
+}
+
+class MenuItem {
+  -std::string label
+  +click()
+}
+
+Window --> Control
+Control --> Button
+Control --> TextBox
+Control --> Label
+Window --> Menu
+Menu --> MenuItem
+@enduml

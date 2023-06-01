@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 3.22)
+cmake_minimum_required (VERSION 3.19)
 
 project(SimpleProject LANGUAGES CXX)
 
@@ -7,14 +7,20 @@ set(EXECUTABLE_TARGET ${PROJECT_NAME})
 set(EXECUTABLE_SOURCES
     main.cpp
 )
-
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /SUBSYSTEM:WINDOWS /ENTRY:mainCRTStartup")
 add_executable(${EXECUTABLE_TARGET} ${EXECUTABLE_SOURCES})
+
+set_target_properties(${PROJECT_NAME} PROPERTIES WIN32_EXECUTABLE TRUE)
 
 target_link_libraries(${EXECUTABLE_TARGET}
     PRIVATE
         UI.Static
 )
 
-install(TARGETS ${EXECUTABLE_TARGET})
 
-# add_subdirectory(xcp2mdf.Test)
+if(MSVC)
+    target_compile_options(${EXECUTABLE_TARGET} PRIVATE /EHsc)
+endif()
+
+
+install(TARGETS ${EXECUTABLE_TARGET})
