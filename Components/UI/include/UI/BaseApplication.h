@@ -112,7 +112,7 @@ private:
     void createRadioButton(const RadioButtonParams &params);
     void createCkeckBox(const CheckBoxParams &params);
 
-private:
+protected:
     HINSTANCE _hInstance; // Application handle
     Window _mainWindow;   // Main window of the application
 };
