@@ -37,4 +37,4 @@ endforeach()
 # enable_testing()
 
 add_subdirectory(Components)
-# add_subdirectory(Projects)
+add_subdirectory(Projects)

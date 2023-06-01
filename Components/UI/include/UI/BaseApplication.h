@@ -17,17 +17,17 @@ namespace
     // clang-format off
     WindowParams defaultParams{
         "Test Project",
-        800,
-        1200,
+        300,
+        400,
         
         { // button
-            //{"Button1", "Button 1 (Only clickable)", 25, 130, 50, 250, true, true},
+            {"Button1", "Click me!", 10, 10, 50, 350, true, true},
             // {"Button2", "Button 2 (Only doubleclickable)", 25, 190, 50, 25},
             // {"Button3", "Button 3 (Multiply)", 25, 250, 50, 25},
             // {"Button4", "Button 4 (Noone event supported)", 25, 310, 50, 25},
         },
         { // static controls
-            //{"Label1", "Button 1 clicked 0", 300, 130, 50, 400},
+            {"Label1", "Random number", 10, 130, 50, 350},
             // {"Label2", "Button 2 clicked 0 times", 300, 190, 50, 400},
             // {"Label3", "Button 3 clicked 0 times", 300, 250, 50, 400},
             // {"Label4", "Button 4 clicked 0 times", 300, 310, 50, 400},
