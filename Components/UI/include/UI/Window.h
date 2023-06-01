@@ -27,10 +27,11 @@ public:
     }
 
     template <class Widget, typename... Args>
-    WORD addWidget(Args... args)
+    WORD addWidget(const std::string &name, Args... args)
     {
         WORD id = static_cast<WORD>(_widgets.size());
-        _widgets[id] = (std::make_unique<Widget>(id, args...));
+        _widgets[id] = (std::make_unique<Widget>(id, name, args...));
+        _widgetNameToId[name] = id;
         return id;
     }
 
@@ -40,6 +41,16 @@ public:
         if (_widgets.count(id))
         {
             return dynamic_cast<Widget *>(_widgets.at(id).get());
+        }
+        return nullptr;
+    }
+
+    template <class Widget>
+    Widget *findWidgetByName(const std::string &name)
+    {
+        if (_widgetNameToId.count(name))
+        {
+            return findWidgetById<Widget>(_widgetNameToId[name]);
         }
         return nullptr;
     }
@@ -132,6 +143,7 @@ private:
     Icon _icon;
 
     std::unordered_map<WORD, std::unique_ptr<IWidget>> _widgets;
+    std::unordered_map<std::string, WORD> _widgetNameToId;
 
     static LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 };

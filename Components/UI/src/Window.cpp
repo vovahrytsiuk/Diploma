@@ -40,23 +40,16 @@ LRESULT CALLBACK Window::WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM 
             case BN_CLICKED:
             {
                 auto *button = pThis->defineWidget<IButton>(LOWORD(wParam));
-                if (button)
+                if (button && button->getClickable())
                 {
-                    if (button->getButtonType() == ButtonType::PushButton)
-                    {
-                        (dynamic_cast<Button *>(button))->_click.emit();
-                    }
-                    else if (button->getButtonType() == ButtonType::CheckBox)
-                    {
-                        (dynamic_cast<CheckBox *>(button))->_stateChanged.emit();
-                    }
+                    button->_click.emit();
                 }
                 break;
             }
             case BN_DBLCLK:
             {
                 auto *button = pThis->defineWidget<Button>(LOWORD(wParam));
-                if (button)
+                if (button && button->getDoubleClickable())
                 {
                     button->_doubleClick.emit();
                 }

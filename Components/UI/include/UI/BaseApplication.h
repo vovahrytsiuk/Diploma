@@ -9,6 +9,7 @@
 #include "WindowsParamsMock.h"
 #include "Widgets/FieldEdit.h"
 #include "Widgets/SpinBox.h"
+#include "Widgets/RadioButton.h"
 
 namespace
 {
@@ -16,11 +17,11 @@ namespace
     // clang-format off
     WindowParams defaultParams{
         "Window Title",
-        600,
-        800,
+        1000,
+        1200,
         
         { // button
-            {"Button1", "Button 1 (Only clickable)", 25, 130, 50, 250},
+            {"Button1", "Button 1 (Only clickable)", 25, 130, 50, 250, true, true},
             // {"Button2", "Button 2 (Only doubleclickable)", 25, 190, 50, 25},
             // {"Button3", "Button 3 (Multiply)", 25, 250, 50, 25},
             // {"Button4", "Button 4 (Noone event supported)", 25, 310, 50, 25},
@@ -39,7 +40,7 @@ namespace
             
         },
         { // check boxes
-            {"CheckBox1", "CheckBox1", 500, 300, 50, 150},
+            {"CheckBox1", "CheckBox1", 500, 300, 50, 150, false},
             // {"CheckBox2", "CheckBox2", 500, 500, 50, 150}
         },
         { // spin boxes
@@ -52,6 +53,12 @@ namespace
             // int _lower;
             // int _default;
             {"SpinBox1", 600, 50, 100, 200, 10, 0, 5}
+        },
+        { // radiobuttons
+            {"Radio Button1", 250, 600, 30, 100, "Option 1", false, true},
+            {"Radio Button2", 250, 670, 30, 100, "Option 2", false, false},
+            {"Radio Button3", 400, 600, 30, 100, "Option 1", false, true},
+            {"Radio Button2", 400, 670, 30, 100, "Option 2", false, false},
         }
     };
     // clang-format on
@@ -65,6 +72,9 @@ public:
 
     {
         createMainWindowWidgets(params);
+        auto *button = _mainWindow.findWidgetByName<Button>("Button1");
+        button->_click.connect([]()
+                               {MessageBox(NULL, "Clicked", "Clicked", MB_OK);; });
 
         _mainWindow.render();
     }
@@ -100,7 +110,6 @@ private:
     void createFieldEdit(const FieldEditParams &params);
     void createSpinBox(const SpinBoxParams &params);
     void createRadioButton(const RadioButtonParams &params);
-    void createImageField(const ImageFieldParams &params);
     void createCkeckBox(const CheckBoxParams &params);
 
 private:

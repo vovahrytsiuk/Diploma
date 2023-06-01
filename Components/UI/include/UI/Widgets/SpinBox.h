@@ -23,6 +23,7 @@ public:
     // Event _textChanged;
 };
 
+// clickable
 class SpinBox : public IWidget
 {
 public:

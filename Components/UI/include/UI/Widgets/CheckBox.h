@@ -7,7 +7,7 @@
 class CheckBox : public IButton
 {
 public:
-    CheckBox(WORD id, const std::string &name, const Size &size, const Position &position, const Text &text);
+    CheckBox(WORD id, const std::string &name, const Size &size, const Position &position, const Text &text, bool clickable);
 
     bool isChecked() const
     {
@@ -30,5 +30,4 @@ private:
 
 private:
 public:
-    Event _stateChanged;
 };

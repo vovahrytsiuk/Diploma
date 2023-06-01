@@ -11,6 +11,8 @@ struct ButtonParams
     int _y;
     int _height;
     int _width;
+    bool _clickable;
+    bool _doubleClickable;
 };
 
 struct LabelParams
@@ -40,6 +42,7 @@ struct CheckBoxParams
     int _y;
     int _height;
     int _width;
+    bool _clickable;
 };
 
 struct SpinBoxParams
@@ -54,6 +57,18 @@ struct SpinBoxParams
     int _default;
 };
 
+struct RadioButtonParams
+{
+    std::string _name;
+    int _x;
+    int _y;
+    int _height;
+    int _width;
+    std::string _text;
+    bool _clickable;
+    bool _newGroup;
+};
+
 struct WindowParams
 {
     std::string _title;
@@ -64,13 +79,5 @@ struct WindowParams
     std::vector<FieldEditParams> _lineEdits;
     std::vector<CheckBoxParams> _checkBoxes;
     std::vector<SpinBoxParams> _spinBoxes;
-};
-
-struct RadioButtonParams
-{
-    std::string _name;
-};
-struct ImageFieldParams
-{
-    std::string _name;
+    std::vector<RadioButtonParams> _radioButtons;
 };

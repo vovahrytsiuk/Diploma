@@ -7,11 +7,12 @@ void BaseApplication::createMainWindowWidgets(const WindowParams &params)
     createWidgets(params._labels, &BaseApplication::createLabel);
     createWidgets(params._spinBoxes, &BaseApplication::createSpinBox);
     createWidgets(params._lineEdits, &BaseApplication::createFieldEdit);
+    createWidgets(params._radioButtons, &BaseApplication::createRadioButton);
 }
 
 void BaseApplication::createButton(const ButtonParams &params)
 {
-    _mainWindow.addWidget<Button>(params._name, Size{params._height, params._width}, Position{params._x, params._y}, Text{params._text});
+    _mainWindow.addWidget<Button>(params._name, Size{params._height, params._width}, Position{params._x, params._y}, Text{params._text}, params._clickable, params._doubleClickable);
 }
 
 void BaseApplication::createLabel(const LabelParams &params)
@@ -30,17 +31,12 @@ void BaseApplication::createSpinBox(const SpinBoxParams &params)
     _mainWindow.addWidget<SpinBox>(params._name, params._upper, params._lower, params._default, id);
 }
 
-void BaseApplication::createRadioButton(const RadioButtonParams &)
+void BaseApplication::createRadioButton(const RadioButtonParams &params)
 {
-    // TODO
-}
-
-void BaseApplication::createImageField(const ImageFieldParams &)
-{
-    // TODO
+    _mainWindow.addWidget<RadioButton>(params._name, Size{params._height, params._width}, Position{params._x, params._y}, Text{params._text}, params._clickable, params._newGroup);
 }
 
 void BaseApplication::createCkeckBox(const CheckBoxParams &params)
 {
-    _mainWindow.addWidget<CheckBox>(params._name, Size{params._height, params._width}, Position{params._x, params._y}, Text{params._text});
+    _mainWindow.addWidget<CheckBox>(params._name, Size{params._height, params._width}, Position{params._x, params._y}, Text{params._text}, params._clickable);
 }

@@ -14,7 +14,7 @@ set(HEADERS
     ${INCLUDE_PREFIX}/${WIDGETS_PREFIX}/IButton.h
     ${INCLUDE_PREFIX}/${WIDGETS_PREFIX}/FieldEdit.h
     ${INCLUDE_PREFIX}/${WIDGETS_PREFIX}/SpinBox.h
-    ${INCLUDE_PREFIX}/${WIDGETS_PREFIX}/ImageField.h
+    ${INCLUDE_PREFIX}/${WIDGETS_PREFIX}/RadioButton.h
     ${INCLUDE_PREFIX}/WindowsParamsMock.h
 )
 
@@ -33,7 +33,7 @@ set(SOURCES
     ${SOURCES_PREFIX}/${WIDGETS_PREFIX}/FieldEdit.cpp
     ${SOURCES_PREFIX}/${WIDGETS_PREFIX}/SpinBox.cpp
     ${SOURCES_PREFIX}/${WIDGETS_PREFIX}/IWidget.cpp
-    ${SOURCES_PREFIX}/${WIDGETS_PREFIX}/ImageField.cpp
+    ${SOURCES_PREFIX}/${WIDGETS_PREFIX}/RadioButton.cpp
 )
 
 set(STATIC_TARGET ${PROJECT_NAME}.Static)

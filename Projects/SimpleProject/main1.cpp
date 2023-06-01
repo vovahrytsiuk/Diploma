@@ -1,169 +1,66 @@
-// #pragma once
 
-#include <windows.h>
+#pragma warning(disable : 4458)
+#include <Windows.h>
+#include <gdiplus.h>
+using namespace Gdiplus;
 
-// Step 1: Declare the window procedure
-LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
-
-// Global variables for radio buttons in Group 1
-HWND hGroup1RadioButton1, hGroup1RadioButton2;
-
-// Global variables for radio buttons in Group 2
-HWND hGroup2RadioButton1, hGroup2RadioButton2;
+LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 int WINAPI WinMain(HINSTANCE hInstance, [[maybe_unused]] HINSTANCE hPrevInstance, [[maybe_unused]] LPSTR lpCmdLine, int nCmdShow)
 {
-    // Step 2: Register the window class
-    const wchar_t CLASS_NAME[] = "Multiple Radio Groups Window Class";
+    // Initialize GDI+
+    GdiplusStartupInput gdiplusStartupInput;
+    ULONG_PTR gdiplusToken;
+    GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL);
 
-    WNDCLASS wc = {};
-    wc.lpfnWndProc = WindowProc;
+    // Create the window
+    const char CLASS_NAME[] = "MyWindowClass";
+    WNDCLASS wc = {0};
+    wc.lpfnWndProc = WndProc;
     wc.hInstance = hInstance;
     wc.lpszClassName = CLASS_NAME;
-
     RegisterClass(&wc);
 
-    // Step 3: Create the window
-    HWND hwnd = CreateWindowEx(
-        0,                               // Optional window styles
-        CLASS_NAME,                      // Window class name
-        "Multiple Radio Groups Example", // Window title
-        WS_OVERLAPPEDWINDOW,             // Window style
+    HWND hWnd = CreateWindowEx(
+        0, CLASS_NAME, "Image Window",
+        WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT,
+        500, 500, NULL, NULL, hInstance, NULL);
 
-        // Size and position
-        CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
-
-        NULL,      // Parent window
-        NULL,      // Menu
-        hInstance, // Instance handle
-        NULL       // Additional application data
-    );
-
-    if (hwnd == NULL)
-    {
+    if (hWnd == NULL)
         return 0;
-    }
 
-    // Step 4: Create radio buttons for Group 1
-    hGroup1RadioButton1 = CreateWindowEx(
-        0,                                          // Optional window styles
-        "BUTTON",                                   // Control class name
-        "Option 1 (Group 1)",                       // Control text
-        WS_CHILD | WS_VISIBLE | BS_AUTORADIOBUTTON, // Control styles
+    // Load and display the image
+    HDC hdc = GetDC(hWnd);
+    Graphics graphics(hdc);
+    Image image(L"R.png");
+    graphics.DrawImage(&image, 10, 10);
 
-        // Size and position
-        50, 50, 150, 25,
+    // Clean up GDI+
+    ReleaseDC(hWnd, hdc);
+    GdiplusShutdown(gdiplusToken);
 
-        hwnd,      // Parent window
-        NULL,      // Control identifier
-        hInstance, // Instance handle
-        NULL       // Additional control data
-    );
+    // Display the window
+    ShowWindow(hWnd, nCmdShow);
 
-    hGroup1RadioButton2 = CreateWindowEx(
-        0,                                          // Optional window styles
-        "BUTTON",                                   // Control class name
-        "Option 2 (Group 1)",                       // Control text
-        WS_CHILD | WS_VISIBLE | BS_AUTORADIOBUTTON, // Control styles
-
-        // Size and position
-        50, 80, 150, 25,
-
-        hwnd,      // Parent window
-        NULL,      // Control identifier
-        hInstance, // Instance handle
-        NULL       // Additional control data
-    );
-
-    // Set the first radio button in Group 1 as the initially selected one
-    SendMessage(hGroup1RadioButton1, BM_SETCHECK, BST_CHECKED, 0);
-
-    // Step 5: Create radio buttons for Group 2
-    hGroup2RadioButton1 = CreateWindowEx(
-        0,                                          // Optional window styles
-        "BUTTON",                                   // Control class name
-        "Option 1 (Group 2)",                       // Control text
-        WS_CHILD | WS_VISIBLE | BS_AUTORADIOBUTTON, // Control styles
-
-        // Size and position
-        250, 50, 150, 25,
-
-        hwnd,      // Parent window
-        NULL,      // Control identifier
-        hInstance, // Instance handle
-        NULL       // Additional control data
-    );
-
-    hGroup2RadioButton2 = CreateWindowEx(
-        0,                                          // Optional window styles
-        "BUTTON",                                   // Control class name
-        "Option 2 (Group 2)",                       // Control text
-        WS_CHILD | WS_VISIBLE | BS_AUTORADIOBUTTON, // Control styles
-
-        // Size and position
-        250, 80, 150, 25,
-
-        hwnd,      // Parent window
-        NULL,      // Control identifier
-        hInstance, // Instance handle
-        NULL       // Additional control data
-    );
-
-    // Set the first radio button in Group 2 as the initially selected one
-    SendMessage(hGroup2RadioButton1, BM_SETCHECK, BST_CHECKED, 0);
-
-    // Step 6: Show the window
-    ShowWindow(hwnd, nCmdShow);
-
-    // Step 7: Run the message loop
-    MSG msg = {};
+    // Run the message loop
+    MSG msg = {0};
     while (GetMessage(&msg, NULL, 0, 0))
     {
         TranslateMessage(&msg);
         DispatchMessage(&msg);
     }
 
-    return 0;
+    return static_cast<WORD>(msg.wParam);
 }
 
-// Step 8: Implement the window procedure
-LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
-    switch (uMsg)
+    switch (msg)
     {
-    case WM_COMMAND:
-    {
-        // Handle radio button selection changes
-        if (HIWORD(wParam) == BN_CLICKED)
-        {
-            // Check which radio button was clicked in Group 1
-            if ((HWND)lParam == hGroup1RadioButton1)
-            {
-                MessageBox(hwnd, "Option 1 (Group 1) selected", "Radio Groups", MB_OK);
-            }
-            else if ((HWND)lParam == hGroup1RadioButton2)
-            {
-                MessageBox(hwnd, "Option 2 (Group 1) selected", "Radio Groups", MB_OK);
-            }
-            // Check which radio button was clicked in Group 2
-            else if ((HWND)lParam == hGroup2RadioButton1)
-            {
-                MessageBox(hwnd, "Option 1 (Group 2) selected", "Radio Groups", MB_OK);
-            }
-            else if ((HWND)lParam == hGroup2RadioButton2)
-            {
-                MessageBox(hwnd, "Option 2 (Group 2) selected", "Radio Groups", MB_OK);
-            }
-        }
-        break;
-    }
-
     case WM_DESTROY:
         PostQuitMessage(0);
         return 0;
-
-    default:
-        return DefWindowProc(hwnd, uMsg, wParam, lParam);
     }
-    return DefWindowProc(hwnd, uMsg, wParam, lParam);
+
+    return DefWindowProc(hWnd, msg, wParam, lParam);
 }
