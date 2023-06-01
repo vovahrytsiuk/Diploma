@@ -16,18 +16,18 @@ namespace
 
     // clang-format off
     WindowParams defaultParams{
-        "Window Title",
-        1000,
+        "Test Project",
+        800,
         1200,
         
         { // button
-            {"Button1", "Button 1 (Only clickable)", 25, 130, 50, 250, true, true},
+            //{"Button1", "Button 1 (Only clickable)", 25, 130, 50, 250, true, true},
             // {"Button2", "Button 2 (Only doubleclickable)", 25, 190, 50, 25},
             // {"Button3", "Button 3 (Multiply)", 25, 250, 50, 25},
             // {"Button4", "Button 4 (Noone event supported)", 25, 310, 50, 25},
         },
         { // static controls
-            {"Label1", "Button 1 clicked 0", 300, 130, 50, 400},
+            //{"Label1", "Button 1 clicked 0", 300, 130, 50, 400},
             // {"Label2", "Button 2 clicked 0 times", 300, 190, 50, 400},
             // {"Label3", "Button 3 clicked 0 times", 300, 250, 50, 400},
             // {"Label4", "Button 4 clicked 0 times", 300, 310, 50, 400},
@@ -36,11 +36,11 @@ namespace
             // {"Label7", "Copied multiplier:", 25, 370, 50, 250}
         },
         { // line edits
-            {"Edit1", 10, 300, 70, 50},
+            //{"Edit1", 10, 300, 70, 50},
             
         },
         { // check boxes
-            {"CheckBox1", "CheckBox1", 500, 300, 50, 150, false},
+            //{"CheckBox1", "CheckBox1", 500, 300, 50, 150, false},
             // {"CheckBox2", "CheckBox2", 500, 500, 50, 150}
         },
         { // spin boxes
@@ -52,13 +52,13 @@ namespace
             // int _upper;
             // int _lower;
             // int _default;
-            {"SpinBox1", 600, 50, 100, 200, 10, 0, 5}
+            //{"SpinBox1", 600, 50, 100, 200, 10, 0, 5}
         },
         { // radiobuttons
-            {"Radio Button1", 250, 600, 30, 100, "Option 1", false, true},
-            {"Radio Button2", 250, 670, 30, 100, "Option 2", false, false},
-            {"Radio Button3", 400, 600, 30, 100, "Option 1", false, true},
-            {"Radio Button2", 400, 670, 30, 100, "Option 2", false, false},
+            //{"Radio Button1", 250, 600, 30, 100, "Option 1", false, true},
+            //{"Radio Button2", 250, 670, 30, 100, "Option 2", false, false},
+            //{"Radio Button3", 400, 600, 30, 100, "Option 1", false, true},
+            //{"Radio Button2", 400, 670, 30, 100, "Option 2", false, false},
         }
     };
     // clang-format on
@@ -72,9 +72,9 @@ public:
 
     {
         createMainWindowWidgets(params);
-        auto *button = _mainWindow.findWidgetByName<Button>("Button1");
-        button->_click.connect([]()
-                               {MessageBox(NULL, "Clicked", "Clicked", MB_OK);; });
+        // auto *button = _mainWindow.findWidgetByName<Button>("Button1");
+        // button->_click.connect([]()
+        //                        {MessageBox(NULL, "Clicked", "Clicked", MB_OK);; });
 
         _mainWindow.render();
     }

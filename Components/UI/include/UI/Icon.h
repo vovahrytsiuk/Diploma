@@ -7,7 +7,7 @@ class Icon
 public:
     Icon()
     {
-        _handle = LoadIcon(NULL, IDI_QUESTION);
+        _handle = LoadIcon(NULL, IDI_APPLICATION);
     }
     Icon(const Icon &) = delete;
     Icon(Icon &&) = default;
