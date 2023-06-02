@@ -6,7 +6,7 @@ skinparam component {
 }
 
 package "UI Component" {
-    [UI] ..> [UiApplicationInterface] : <<implements>>
+    [UI] ..> [BaseApplication] : <<implements>>
     [UI] --> [Events] : <<uses>>  
     [UI] --> [Win32API] : <<uses>>
     
@@ -15,9 +15,9 @@ package "UI Component" {
 
 package "Markup Component" {
     [Markup]
-    [ParseMarkupFile]
-    [Markup] ..> [ParseMarkupFile] : <<implements>>
-    [ParseMarkupFile] --> [WindowParams] : <<returns>>
+    [Parsing]
+    [Markup] ..> [Parsing] : <<implements>>
+    [Parsing] --> [Window Parameters] : <<returns>>
 }
 
 [UI] --> [Markup] : <<uses>>

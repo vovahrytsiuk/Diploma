@@ -42,7 +42,7 @@ interface "MarkupParserInterface" {
 class "ParsedStructure" {
   -status: Status
   -message: String
-  -windowParams: WindowParams
+  -windowParams: Params::Window
 }
 
 class "Status" {
@@ -51,7 +51,7 @@ class "Status" {
   +Error
 }
 
-class "WindowParams" {
+class "Params::Window" {
   -height: int
   -width: int
   -title: String
