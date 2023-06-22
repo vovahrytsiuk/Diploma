@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include <functional>
 #include <vector>
 
@@ -23,5 +22,5 @@ public:
     }
 
 private:
-    std::vector<EventHandler> _handlers;
+    std::vector<EventHandler> _handlers{};
 };

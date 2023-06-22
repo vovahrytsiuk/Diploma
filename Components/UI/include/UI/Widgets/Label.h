@@ -17,5 +17,4 @@ protected:
     int getStyles() override;
 
 private:
-    std::string _className = "Static";
 };

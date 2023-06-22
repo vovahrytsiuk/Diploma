@@ -1,8 +1,0 @@
-@startuml
-
-package Components{
-    [UI] as ui
-    [Markup] as markup
-}
-
-@enduml

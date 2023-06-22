@@ -1,0 +1,18 @@
+/ name : Test Project
+/ sizeVert : 400
+/ sizeGorz : 360
+| Button [
+/    name : Button_Calculate
+|    Text [
+/       text: Calculate]
+/    positionGorz : 10
+/    positionVert : 60
+/    sizeVert : 50
+/    sizeGorz : 325
+/]
+| EditLine [
+/    name: Coefficient_X_Squared
+/    positionGorz: 10
+/    positionVert: 20
+/    sizeVert: 25
+/    sizeGorz: 50]

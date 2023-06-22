@@ -3,7 +3,7 @@
 #include <vector>
 #include <string>
 
-namespace Params
+namespace ParamsMock
 {
 
     struct Button
@@ -77,11 +77,11 @@ namespace Params
         std::string _title;
         int _height;
         int _width;
-        std::vector<Params::Button> _buttons;
-        std::vector<Params::Label> _labels;
-        std::vector<Params::FieldEdit> _lineEdits;
-        std::vector<Params::CheckBox> _checkBoxes;
-        std::vector<Params::SpinBox> _spinBoxes;
-        std::vector<Params::RadioButton> _radioButtons;
+        std::vector<ParamsMock::Button> _buttons;
+        std::vector<ParamsMock::Label> _labels;
+        std::vector<ParamsMock::FieldEdit> _lineEdits;
+        std::vector<ParamsMock::CheckBox> _checkBoxes;
+        std::vector<ParamsMock::SpinBox> _spinBoxes;
+        std::vector<ParamsMock::RadioButton> _radioButtons;
     };
 }

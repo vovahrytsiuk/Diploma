@@ -6,8 +6,8 @@
 class Font
 {
 public:
-    Font(int height = 18, bool italic = false, bool underline = false, bool strikeOut = false, const std::string &faceName = "Calibri")
-        : _height{height}, _italic{italic}, _underline{underline}, _strikeOut{strikeOut}, _handle{NULL}, _faceName{faceName}
+    Font(int height = 18, bool bold = false, bool italic = false, bool underline = false, bool strikeOut = false, const std::string &faceName = "Calibri")
+        : _height{height}, _bold{bold}, _italic{italic}, _underline{underline}, _strikeOut{strikeOut}, _handle{NULL}, _faceName{faceName}
     {
     }
 
@@ -37,8 +37,69 @@ public:
         return _handle;
     }
 
+    int getHeight() const
+    {
+        return _height;
+    }
+
+    void setHeight(int height)
+    {
+        _height = height;
+    }
+
+    bool getItalic() const
+    {
+        return _italic;
+    }
+
+    bool setItalic(bool italic)
+    {
+        _italic = italic;
+    }
+
+    bool getUnderline() const
+    {
+        return _underline;
+    }
+
+    void setUnderline(bool underline)
+    {
+        _underline = underline;
+    }
+
+    bool getBold() const
+    {
+        return _bold;
+    }
+
+    void setBold(bool bold)
+    {
+        _bold = bold;
+    }
+
+    bool getStrikeOut() const
+    {
+        return _strikeOut;
+    }
+
+    void setStrikeOut(bool strikeOut)
+    {
+        _strikeOut = strikeOut;
+    }
+
+    std::string getFaceName() const
+    {
+        return _faceName;
+    }
+
+    void setFaceName(const std::string &faceName)
+    {
+        _faceName = faceName;
+    }
+
 private:
     int _height;
+    bool _bold;
     bool _italic;
     bool _underline;
     bool _strikeOut;

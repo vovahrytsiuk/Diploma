@@ -1,0 +1,67 @@
+| Button [
+/    name : Button_Calculate
+|    Text [
+/       text: Calculate]
+/    positionGorz : 10
+/    positionVert : 60
+/    sizeVert : 50
+/    sizeGorz : 325
+/]
+| Label [
+/   name: Label_X_Square
+|   Text [
+/        text: x^2 + ]
+/    positionGorz: 65
+/    positionVert: 20
+/    sizeVert: 25
+/    sizeGorz: 50]
+| Label [
+/   name: Label_X
+|   Text [
+/        text: x + ]
+/    positionGorz: 175
+/    positionVert: 20
+/    sizeVert: 25
+/    sizeGorz: 50]
+| Label [
+/   name: Label_Equal_Zero
+|   Text [
+/        text: = 0]
+/    positionGorz: 285
+/    positionVert: 20
+/    sizeVert: 25
+/    sizeGorz: 50]
+| Label [
+/   name: Label_Answer
+|   Text [
+/        text:]
+/    positionGorz: 10
+/    positionVert: 155
+/    sizeVert: 200
+/    sizeGorz: 325]
+| EditLine [
+/    name: Coefficient_X_Squared
+/    positionGorz: 10
+/    positionVert: 20
+/    sizeVert: 25
+/    sizeGorz: 50]
+| EditLine [
+/    name: Coefficient_X
+/    positionGorz: 120
+/    positionVert: 20
+/    sizeVert: 25
+/    sizeGorz: 50]
+| EditLine [
+/    name: Coefficient_Free_Member
+/    positionGorz: 230
+/    positionVert: 20
+/    sizeVert: 25
+/    sizeGorz: 50]
+| CheckBox [
+/    name: CheckBox_Show_Discriminant
+|    Text [
+/        text: Show discriminant calculation]
+/    positionGorz: 10
+/    positionVert: 120
+/    sizeVert: 25
+/    sizeGorz: 325]

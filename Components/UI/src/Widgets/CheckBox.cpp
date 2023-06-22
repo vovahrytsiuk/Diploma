@@ -9,5 +9,5 @@ CheckBox::CheckBox(WORD id, const std::string &name, const Size &size, const Pos
 
 int CheckBox::getStyles()
 {
-    return WS_CHILD | WS_VISIBLE | BS_CHECKBOX;
+    return WS_CHILD | WS_VISIBLE | BS_CHECKBOX | WS_BORDER;
 }

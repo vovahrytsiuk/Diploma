@@ -19,6 +19,11 @@ public:
         return _doubleClickable;
     }
 
+    void setDoubleClickable(bool doubleClickable)
+    {
+        _doubleClickable = doubleClickable;
+    }
+
 private:
     bool _doubleClickable;
 

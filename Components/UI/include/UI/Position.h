@@ -11,6 +11,16 @@ public:
         return _y;
     }
 
+    void setX(int x)
+    {
+        _x = x;
+    }
+
+    void setY(int y)
+    {
+        _y = y;
+    }
+
     int getX() const
     {
         return _x;

@@ -5,7 +5,6 @@ set(INCLUDE_PREFIX "include/UI")
 set(HEADERS
     ${INCLUDE_PREFIX}/BaseApplication.h
     ${INCLUDE_PREFIX}/Window.h
-    ${INCLUDE_PREFIX}/Icon.h
     ${INCLUDE_PREFIX}/Font.h
     ${INCLUDE_PREFIX}/Event.h
     ${INCLUDE_PREFIX}/${WIDGETS_PREFIX}/Button.h
@@ -22,6 +21,10 @@ set(INCLUDE_TARGET ${PROJECT_NAME}.Include)
 add_library(${INCLUDE_TARGET} INTERFACE ${HEADERS})
 
 target_include_directories(${INCLUDE_TARGET} INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/include")
+target_link_libraries(${INCLUDE_TARGET}
+    INTERFACE
+        Params.Static
+)
 
 set(SOURCES_PREFIX "src")
 set(SOURCES
@@ -50,7 +53,8 @@ target_link_libraries(${STATIC_TARGET}
         ${INCLUDE_TARGET}
         Comctl32
     PRIVATE
-        Markup.Static
+        Params.Static
+        Parser.Static
 )
 
 add_link_options(

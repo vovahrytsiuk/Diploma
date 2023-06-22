@@ -3,7 +3,6 @@
 #include "Widgets/IWigdet.h"
 #include <memory>
 #include "Widgets/Button.h"
-#include "Icon.h"
 
 #include <windows.h>
 #include <string>
@@ -14,6 +13,7 @@
 class Window
 {
 public:
+    Window(){};
     Window(const std::string &title, const Size &size, HINSTANCE hInstance)
         : _title{title}, _size{size}, _hInstance{hInstance}, _isShown{true}
     {
@@ -96,10 +96,6 @@ public:
 
         SetWindowLongPtr(_hwnd, GWLP_USERDATA, (LONG_PTR)this);
 
-        SetClassLongPtr(_hwnd,      // window handle
-                        GCLP_HICON, // changes icon
-                        (LONG_PTR)_icon.getHandle());
-
         return _hwnd != NULL;
     }
 
@@ -140,7 +136,6 @@ private:
     bool _isShown;
     HINSTANCE _hInstance;
     HWND _hwnd;
-    Icon _icon;
 
     std::unordered_map<WORD, std::unique_ptr<IWidget>> _widgets;
     std::unordered_map<std::string, WORD> _widgetNameToId;

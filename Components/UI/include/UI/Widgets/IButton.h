@@ -22,6 +22,11 @@ public:
         return _clickable;
     }
 
+    void setClickable(bool clickable)
+    {
+        _clickable = clickable;
+    }
+
     Event _click;
 
 protected:

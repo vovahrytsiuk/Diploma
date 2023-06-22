@@ -2,104 +2,107 @@
 
 namespace
 {
-    Params::Window params{
+    ParamsMock::Window params{
         "Test Project",
-        800,
-        1200,
+        400, // height
+        360, // width
         {
             // button
             {
-                "Button1",   // name
-                "Calculate", // text
-                10,          // x
-                10,          // y
-                50,          // height
-                350,         // width
-                true,        // doubleclickable
-                true         // clickable
+                "Button_Calculate", // name
+                "Calculate",        // text
+                10,                 // x
+                60,                 // y
+                50,                 // height
+                325,                // width
+                true,               // doubleclickable
+                true                // clickable
             },
-            // {"Button2", "Button 2 (Only doubleclickable)", 25, 190, 50, 25},
-            // {"Button3", "Button 3 (Multiply)", 25, 250, 50, 25},
-            // {"Button4", "Button 4 (Noone event supported)", 25, 310, 50, 25},
         },
         {
             // static controls
             {
-                "Label1",        // name
-                "Random number", // text
-                10,              // x
-                130,             // y
-                50,              // height
-                350              // width
+                "Label_X_Square", // name
+                "x^2 + ",         // text
+                65,               // x
+                20,               // y
+                25,               // height
+                50                // width
             },
-            // {"Label2", "Button 2 clicked 0 times", 300, 190, 50, 400},
-            // {"Label3", "Button 3 clicked 0 times", 300, 250, 50, 400},
-            // {"Label4", "Button 4 clicked 0 times", 300, 310, 50, 400},
-            // {"Label5", "Multiplier:", 25, 70, 50, 250},
-            // {"Label6", "1", 300, 370, 50, 400},
-            // {"Label7", "Copied multiplier:", 25, 370, 50, 250}
+            {
+                "Label_X", // name
+                "x + ",    // text
+                175,       // x
+                20,        // y
+                25,        // height
+                50         // width
+            },
+            {
+                "Label_Equal_Zero", // name
+                " = 0",             // text
+                285,                // x
+                20,                 // y
+                25,                 // height
+                50                  // width
+            },
+            {
+                "Label_Answer", // name
+                "",             // text
+                10,             // x
+                155,            // y
+                200,            // height
+                325             // width
+            },
         },
         {
             // line edits
             {
-                "Edit1", // name
-                10,      // x
-                300,     // y
-                50,      // height
-                250      // width
+                "Coefficient_X_Squared", // name
+                10,                      // x
+                20,                      // y
+                25,                      // height
+                50                       // width
+            },
+            {
+                "Coefficient_X", // name
+                120,             // x
+                20,              // y
+                25,              // height
+                50               // width
+            },
+            {
+                "Coefficient_Free_Member", // name
+                230,                       // x
+                20,                        // y
+                25,                        // height
+                50                         // width
             },
 
         },
         {
             // check boxes
             {
-                "CheckBox1", // name
-                "CheckBox1", // text
-                500,         // x
-                300,         // y
-                50,          // height
-                150,         // width
-                true         // clickable
+                "CheckBox_Show_Discriminant",    // name
+                "Show discriminant calculation", // text
+                10,                              // x
+                120,                             // y
+                25,                              // height
+                325,                             // width
+                true                             // clickable
             },
-            // {"CheckBox2", "CheckBox2", 500, 500, 50, 150}
         },
         {
             // spin boxes
-            {
-                "SpinBox1", // name
-                600,        // x
-                50,         // y
-                100,        // height
-                200,        // width
-                10,         // upper
-                0,          // lower
-                5           // default
-            },
         },
         {
             // radiobuttons
-            {"Radio Button1", // name
-             250,             // x
-             600,             // y
-             30,              // height
-             100,             // width
-             "Option 1",      // text
-             true, true},
-
-            {"Radio Button2", // name
-             250,             // x
-             650,             // y
-             30,              // height
-             100,             // width
-             "Option 2",      // text
-             true, false},
-            //{"Radio Button2", 250, 670, 30, 100, "Option 2", false, false},
-            //{"Radio Button3", 400, 600, 30, 100, "Option 1", false, true},
-            //{"Radio Button2", 400, 670, 30, 100, "Option 2", false, false},
         }};
 }
 
 Application::Application()
-    : BaseApplication(params)
+    : BaseApplication()
 {
+    // auto *button = _mainWindow.findWidgetByName<Button>("Button_Calculate");
+    // button->_click.connect([this]()
+    //                        { this->calculate(); });
 }

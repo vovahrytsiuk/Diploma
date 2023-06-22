@@ -21,6 +21,16 @@ public:
         return _font;
     }
 
+    void setText(const std::string &text)
+    {
+        _text = text;
+    }
+
+    void setFont(const Font &font)
+    {
+        _font = font;
+    }
+
 private:
     std::string _text;
     Font _font;

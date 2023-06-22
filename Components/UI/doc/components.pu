@@ -1,24 +1,86 @@
 @startuml
 
-skinparam component {
-    BorderColor #000000
-    ArrowColor #000000
+' skinparam component {
+'     BorderColor #000000
+'     ArrowColor #000000
+' }   
+' actor "User" as act
+
+
+interface "Win32 api"  as winapi
+
+note bottom of winapi
+    Provides a wide range of functions
+    and services that allow developers 
+    to interact with various aspects of 
+    the Windows operating system, such 
+    as window management, input handling, 
+    file system operations, networking, 
+    and more.
+end note
+
+
+package "CppUI" {
+    ' interface "Widgets Creation" as widg
+    interface "Events emmiting" as ee
+    note bottom of ee
+        Provides an interface 
+        for activating events
+    end note
+    interface "Event handlers connection" as ehc
+    note bottom of ehc
+        Provides an interface 
+        for adding event handlers 
+        to events
+    end note
+    interface "UI creation" as ba
+    note bottom of [ba]
+        Provides interface for
+        user to create GUI elements
+    end note
+    interface "Markup Parsing" as mp
+    note right of mp
+        Provides an interface for 
+        parsing markup files
+    end note
+    [Parser]
+    [Event] ..> ee : <<implements>>
+    [Event] ..> ehc : <<implements>>
+    [UI] --> winapi : <<uses>>
+    [UI] --> ee : <<uses>>
+    [UI] --> ehc : <<uses>>
+    [UI] --> mp : <<uses>>
+    [UI] ..> ba : <<implements>>
+    [Parser] ..> mp : <<implements>>
+    collections WidgetsParameters as wp
+    note right of wp
+        Contains window parameters 
+        such as height, width, 
+        title, adn all widgets 
+        params (sizes, positions, 
+        texts)
+    end note
+    note top of [Parser]
+        Responsible for parsing 
+        markup file and returns 
+        information about 
+        parameters of widgets 
+        and errors in markup file 
+    end note
+    note top of [UI]
+        Responsible for creating 
+        widgets a based on 
+        parameters from parser 
+        and performing event analysis 
+    end note
+    note top of [Event]
+        Responsible for events 
+        interpretation, connecting 
+        handlers to events and 
+        activating (emitting) events
+    end note
+    mp --> wp : <<returns>>
 }
 
-package "UI Component" {
-    [UI] ..> [BaseApplication] : <<implements>>
-    [UI] --> [Events] : <<uses>>  
-    [UI] --> [Win32API] : <<uses>>
-    
-    
-}
 
-package "Markup Component" {
-    [Markup]
-    [Parsing]
-    [Markup] ..> [Parsing] : <<implements>>
-    [Parsing] --> [Window Parameters] : <<returns>>
-}
-
-[UI] --> [Markup] : <<uses>>
 @enduml

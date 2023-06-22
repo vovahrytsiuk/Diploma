@@ -1,0 +1,109 @@
+@startuml
+
+
+class Event{
+    std::vector<EventHandler> _handlers
+    EventHandler = std::function<void()>
+    void connect(EventHandler eventHandler)
+    void emit()
+}
+
+abstract class IWidget{
+    HWND _hwnd
+    WORD _id
+    std::string _name
+    Size _size
+    Position _position
+    Text _text
+    virtual std::string getClassName() = 0
+    virtual int getStyles() = 0
+    virtual int getExStyle()
+    virtual bool render(Window &parent)
+    std::string getText()
+    int getId()
+    std::string getName() const
+    void setText(const std::string &text)
+    IWidget(WORD id, const std::string &name, const Size &size, const Position &position, const Text &text)
+    HWND get_hwnd() const
+}
+
+abstract class IButton{
+    IButton(WORD id, const std::string &name, const Size &size, const Position &position, const Text &text, bool clickable) 
+    virtual ButtonType getButtonType() = 0
+    bool getClickable() const
+    Event _click
+    std::string getClassName() override
+    bool _clickable
+}
+
+IWidget <|-- IButton
+Event *-- IButton
+
+enum ButtonType{
+    PushButton
+    CheckBox
+    RadioButton
+}
+
+class Button{
+    Button(WORD id, const std::string &name, const Size &size, const Position &position, const Text &text, bool clickable, bool doubleClickable)
+    ButtonType getButtonType() override
+    bool getDoubleClickable() const
+    bool _doubleClickable
+    int getStyles() override
+    Event _doubleClick
+}
+
+IButton <|-- Button
+Event *-- Button
+ButtonType *-- Button
+
+class CheckBox{
+    CheckBox(WORD id, const std::string &name, const Size &size, const Position &position, const Text &text, bool clickable)
+    bool isChecked() const
+    ButtonType getButtonType() override
+    int getStyles() override
+    void changeState()
+}
+
+IButton <|-- CheckBox
+Event *-- CheckBox
+ButtonType *-- CheckBox
+
+class FieldEdit{
+    FieldEdit(WORD id, const std::string &name, const Size &size, const Position &position, const Text &text, bool multiline)
+    std::string getClassName() override
+    int getStyles() override
+    bool _multiline
+    Event _textChanged
+}
+
+IWidget <|-- FieldEdit
+Event *-- FieldEdit
+
+class Label
+{
+    Label(WORD id, const std::string &name, const Size &size, const Position &position, const Text &text)
+    std::string getClassName() override
+    int getStyles() override
+}
+
+IWidget <|-- Label
+
+class RadioButton{
+    RadioButton(WORD id, const std::string &name, const Size &size, const Position &position, const Text &text, bool clickable, bool newGroup)
+    ButtonType getButtonType() override
+    int getStyles() override
+    bool _newGroup
+}
+
+Event *-- RadioButton
+ButtonType *-- RadioButton
+IButton <|-- RadioButton
+
+
+
+
+
+
+@enduml
