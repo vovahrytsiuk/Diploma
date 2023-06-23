@@ -34,10 +34,10 @@ namespace Params
         int positionGorz = 0;
         std::string text = "Text";
 
-        int height = 12;
+        int height = 18;
         bool italic = false;
         bool underline = false;
         bool bold = false;
-        std::string title = "Arial";
+        std::string title = "Calibri";
     };
 }

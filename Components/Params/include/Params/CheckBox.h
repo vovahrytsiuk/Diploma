@@ -21,6 +21,10 @@ namespace Params
         bool setDefaultValue() const;
         void setClicable(bool info);
         bool getClicable() const;
+        void setSizeVert(int info);
+        int getSizeVert() const;
+        void setSizeGorz(int info);
+        int getSizeGorz() const;
 
         Text text;
 
@@ -28,6 +32,8 @@ namespace Params
         std::string name;
         int positionVert = 0;
         int positionGorz = 0;
+        int sizeVert = 0;
+        int sizeGorz = 0;
         bool defaultValue = false;
         bool clicable = false;
     };

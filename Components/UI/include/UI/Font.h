@@ -17,6 +17,8 @@ public:
         _italic = font._italic;
         _underline = font._underline;
         _strikeOut = font._strikeOut;
+        _bold = font._bold;
+        _faceName = font._faceName;
         _handle = NULL;
     }
 
@@ -32,7 +34,7 @@ public:
     {
         if (_handle == NULL)
         {
-            _handle = CreateFont(_height, 0, 0, 0, FW_NORMAL, _italic, _underline, _strikeOut, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, _faceName.c_str());
+            _handle = CreateFont(_height, 0, 0, 0, (_bold ? FW_BOLD : FW_NORMAL), _italic, _underline, _strikeOut, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, _faceName.c_str());
         }
         return _handle;
     }

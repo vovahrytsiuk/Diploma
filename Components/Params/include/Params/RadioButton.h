@@ -20,6 +20,10 @@ namespace Params
         bool setDefaultValue() const;
         void setGroupName(std::string info);
         std::string getGroupName() const;
+        void setSizeVert(int info);
+        int getSizeVert() const;
+        void setSizeGorz(int info);
+        int getSizeGorz() const;
 
         Text text;
 
@@ -28,6 +32,8 @@ namespace Params
         std::string groupName = "RB";
         int positionVert = 0;
         int positionGorz = 0;
+        int sizeVert = 0;
+        int sizeGorz = 0;
         bool defaultValue = false;
     };
 }

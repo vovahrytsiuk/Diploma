@@ -1,14 +1,35 @@
 #include <UI/BaseApplication.h>
 #include <Parser/Parser.h>
+#include <algorithm>
+#include <unordered_set>
 
 BaseApplication::BaseApplication() : _hInstance{GetModuleHandle(NULL)}
 {
     Parser parser;
     parser.parcing();
     auto param = parser.getResult();
-    _mainWindow = Window(param.getName(), Size(param.getSizeVert(), param.getSizeGorz()), _hInstance);
-    createMainWindowWidgets(param);
+    if (parser.getError().empty())
+    {
+        // sort radioButtons
+        // radioButtons from different groups should be created without shufling
+        sortRadioButtonsByGroupNames(param);
+        _mainWindow = Window(param.getName(), Size(param.getSizeVert(), param.getSizeGorz()), _hInstance);
+        createMainWindowWidgets(param);
+    }
+    else
+    {
+        // Error window
+        _mainWindow = Window("Error Information", Size(300, 400), _hInstance);
+        _mainWindow.addWidget<Label>("Error", Size{250, 350}, Position{15, 15}, Text{parser.getError()});
+    }
+
     _mainWindow.render();
+}
+
+void BaseApplication::sortRadioButtonsByGroupNames(Params::Form &params)
+{
+    std::sort(params.radioButtones.begin(), params.radioButtones.end(), [](const Params::RadioButton &rb1, const Params::RadioButton &rb2)
+              { return rb1.getGroupName() < rb2.getGroupName(); });
 }
 
 void BaseApplication::createMainWindowWidgets(const ParamsMock::Window &params)
@@ -38,7 +59,7 @@ void BaseApplication::createButtonMock(const ParamsMock::Button &params)
 
 void BaseApplication::createButton(const Params::Button &params)
 {
-    _mainWindow.addWidget<Button>(params.getName(), Size{params.getSizeVert(), params.getSizeGorz()}, Position{params.getPositionGorz(), params.getPositionVert()}, Text{params.text.getText()}, params.getClicable(), params.getDoubleClicable());
+    _mainWindow.addWidget<Button>(params.getName(), Size{params.getSizeVert(), params.getSizeGorz()}, Position{params.getPositionGorz(), params.getPositionVert()}, Text{params.text.getText(), Font(params.text.getHeight(), params.text.getBold(), params.text.getItalic(), params.text.getUnderline(), false, params.text.getTitle())}, params.getClicable(), params.getDoubleClicable());
 }
 
 void BaseApplication::createLabelMock(const ParamsMock::Label &params)
@@ -48,7 +69,7 @@ void BaseApplication::createLabelMock(const ParamsMock::Label &params)
 
 void BaseApplication::createLabel(const Params::Label &params)
 {
-    _mainWindow.addWidget<Label>(params.getName(), Size{50, 200}, Position{params.getPositionGorz(), params.getPositionVert()}, Text{params.text.getText()});
+    _mainWindow.addWidget<Label>(params.getName(), Size{params.getSizeVert(), params.getSizeGorz()}, Position{params.getPositionGorz(), params.getPositionVert()}, Text{params.text.getText(), Font(params.text.getHeight(), params.text.getBold(), params.text.getItalic(), params.text.getUnderline(), false, params.text.getTitle())});
 }
 
 void BaseApplication::createFieldEditMock(const ParamsMock::FieldEdit &params)
@@ -58,7 +79,7 @@ void BaseApplication::createFieldEditMock(const ParamsMock::FieldEdit &params)
 
 void BaseApplication::createFieldEdit(const Params::EditLine &params)
 {
-    _mainWindow.addWidget<FieldEdit>(params.getName(), Size(params.getSizeVert(), params.getSizeGorz()), Position(params.getPositionGorz(), params.getPositionVert()), Text(""));
+    _mainWindow.addWidget<FieldEdit>(params.getName(), Size(params.getSizeVert(), params.getSizeGorz()), Position(params.getPositionGorz(), params.getPositionVert()), Text("", Font(params.text.getHeight(), params.text.getBold(), params.text.getItalic(), params.text.getUnderline(), false, params.text.getTitle())));
 }
 
 void BaseApplication::createSpinBoxMock(const ParamsMock::SpinBox &params)
@@ -80,7 +101,9 @@ void BaseApplication::createRadioButtonMock(const ParamsMock::RadioButton &param
 
 void BaseApplication::createRadioButton(const Params::RadioButton &params)
 {
-    _mainWindow.addWidget<RadioButton>(params.getName(), Size{50, 100}, Position{params.getPositionGorz(), params.getPositionVert()}, Text{params.text.getText()}, true, true);
+    static std::unordered_set<std::string> processedGroupNames;
+    auto result = processedGroupNames.insert(params.getGroupName());
+    _mainWindow.addWidget<RadioButton>(params.getName(), Size{params.getSizeVert(), params.getSizeGorz()}, Position{params.getPositionGorz(), params.getPositionVert()}, Text{params.text.getText(), Font(params.text.getHeight(), params.text.getBold(), params.text.getItalic(), params.text.getUnderline(), false, params.text.getTitle())}, true, result.second);
 }
 
 void BaseApplication::createCkeckBoxMock(const ParamsMock::CheckBox &params)
@@ -90,5 +113,5 @@ void BaseApplication::createCkeckBoxMock(const ParamsMock::CheckBox &params)
 
 void BaseApplication::createCkeckBox(const Params::CheckBox &params)
 {
-    _mainWindow.addWidget<CheckBox>(params.getName(), Size{50, 100}, Position{params.getPositionGorz(), params.getPositionVert()}, Text{params.text.getText()}, params.getClicable());
+    _mainWindow.addWidget<CheckBox>(params.getName(), Size{params.getSizeVert(), params.getSizeGorz()}, Position{params.getPositionGorz(), params.getPositionVert()}, Text{params.text.getText(), Font(params.text.getHeight(), params.text.getBold(), params.text.getItalic(), params.text.getUnderline(), false, params.text.getTitle())}, params.getClicable());
 }

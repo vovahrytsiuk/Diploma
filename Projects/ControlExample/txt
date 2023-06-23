@@ -1,3 +1,12 @@
+/ name : Test Project
+/ sizeVert : 400
+/ sizeGorz : 360
+| EditLine [
+/    name: Coefficient_X_Squared
+/    positionGorz: 10
+/    positionVert: 20
+/    sizeVert: 25
+/    sizeGorz: 50]
 | Button [
 /    name : Button_Calculate
 |    Text [
@@ -6,6 +15,7 @@
 /    positionVert : 60
 /    sizeVert : 50
 /    sizeGorz : 325
+/    clickable : true
 /]
 | Label [
 /   name: Label_X_Square
@@ -34,17 +44,11 @@
 | Label [
 /   name: Label_Answer
 |   Text [
-/        text:]
+/        text:Empty]
 /    positionGorz: 10
 /    positionVert: 155
 /    sizeVert: 200
 /    sizeGorz: 325]
-| EditLine [
-/    name: Coefficient_X_Squared
-/    positionGorz: 10
-/    positionVert: 20
-/    sizeVert: 25
-/    sizeGorz: 50]
 | EditLine [
 /    name: Coefficient_X
 /    positionGorz: 120
@@ -64,4 +68,5 @@
 /    positionGorz: 10
 /    positionVert: 120
 /    sizeVert: 25
-/    sizeGorz: 325]
+/    sizeGorz: 325
+/    clickable: true]

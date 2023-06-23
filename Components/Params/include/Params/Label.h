@@ -16,6 +16,10 @@ namespace Params
         int getPositionGorz() const;
         void setName(std::string info);
         std::string getName() const;
+        void setSizeVert(int info);
+        int getSizeVert() const;
+        void setSizeGorz(int info);
+        int getSizeGorz() const;
 
         Text text;
 
@@ -23,5 +27,7 @@ namespace Params
         std::string name;
         int positionVert = 0;
         int positionGorz = 0;
+        int sizeVert = 0;
+        int sizeGorz = 0;
     };
 }

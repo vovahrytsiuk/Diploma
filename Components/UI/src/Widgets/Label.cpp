@@ -7,5 +7,5 @@ Label::Label(WORD id, const std::string &name, const Size &size, const Position 
 
 int Label::getStyles()
 {
-    return WS_TABSTOP | WS_VISIBLE | WS_CHILD | SS_LEFT;
+    return WS_TABSTOP | WS_VISIBLE | WS_CHILD | SS_CENTER;
 }

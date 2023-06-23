@@ -50,13 +50,17 @@ public:
     {
         try
         {
-            auto *labelA = _mainWindow.findWidgetByName<FieldEdit>("Coefficient_X_Squared");
-            auto *labelB = _mainWindow.findWidgetByName<FieldEdit>("Coefficient_X");
-            auto *labelC = _mainWindow.findWidgetByName<FieldEdit>("Coefficient_Free_Member");
-            QuadraticEquation eq(
-                std::stod(labelA->getText().c_str()),
-                std::stod(labelB->getText().c_str()),
-                std::stod(labelC->getText().c_str()));
+            auto *fieldA = _mainWindow.findWidgetByName<FieldEdit>("Coefficient_X_Squared");
+            auto *fieldB = _mainWindow.findWidgetByName<FieldEdit>("Coefficient_X");
+            auto *fieldC = _mainWindow.findWidgetByName<FieldEdit>("Coefficient_Free_Member");
+            auto aString = fieldA->getText();
+            auto bString = fieldB->getText();
+            auto cString = fieldC->getText();
+            auto a = std::stod(aString.c_str());
+            auto b = std::stod(bString.c_str());
+            auto c = std::stod(cString.c_str());
+            QuadraticEquation eq(a, b, c);
+
             auto *checkBoxShowDisc = _mainWindow.findWidgetByName<CheckBox>("CheckBox_Show_Discriminant");
             auto *label = _mainWindow.findWidgetByName<Label>("Label_Answer");
             label->setText(eq.getRootsString(checkBoxShowDisc->isChecked()));

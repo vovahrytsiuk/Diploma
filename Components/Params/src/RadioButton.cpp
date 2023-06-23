@@ -65,3 +65,23 @@ std::string RadioButton::getGroupName() const
 {
     return groupName;
 }
+
+void RadioButton::setSizeGorz(int info)
+{
+    sizeGorz = info;
+}
+
+int RadioButton::getSizeGorz() const
+{
+    return sizeGorz;
+}
+
+void RadioButton::setSizeVert(int info)
+{
+    sizeVert = info;
+}
+
+int RadioButton::getSizeVert() const
+{
+    return sizeVert;
+}

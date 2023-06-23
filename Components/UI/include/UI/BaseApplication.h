@@ -64,6 +64,8 @@ private:
     void createRadioButton(const Params::RadioButton &params);
     void createCkeckBox(const Params::CheckBox &params);
 
+    void sortRadioButtonsByGroupNames(Params::Form &params);
+
 protected:
     HINSTANCE _hInstance; // Application handle
     Window _mainWindow;   // Main window of the application

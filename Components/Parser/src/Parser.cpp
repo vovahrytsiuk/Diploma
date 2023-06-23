@@ -972,7 +972,7 @@ bool Parser::paramWidget()
                 form.buttons[form.buttons.size() - 1].setPositionGorz(std::stoi(valueString));
             }
         }
-        if (activeString == "clicable")
+        if (activeString == "clickable")
         {
             if (checkBool(valueString))
             {
@@ -990,7 +990,7 @@ bool Parser::paramWidget()
                 return false;
             }
         }
-        if (activeString == "doubleClicable")
+        if (activeString == "doubleClickable")
         {
             if (checkBool(valueString))
             {
@@ -1016,6 +1016,28 @@ bool Parser::paramWidget()
 
     else if (scope.top() == NMWidgets::label)
     {
+        if (activeString == "sizeVert")
+        {
+            if (!checkInt(valueString))
+            {
+                return false;
+            }
+            else
+            {
+                form.labels[form.labels.size() - 1].setSizeVert(std::stoi(valueString));
+            }
+        }
+        if (activeString == "sizeGorz")
+        {
+            if (!checkInt(valueString))
+            {
+                return false;
+            }
+            else
+            {
+                form.labels[form.labels.size() - 1].setSizeGorz(std::stoi(valueString));
+            }
+        }
         if (activeString == "positionVert")
         {
             if (!checkInt(valueString))
@@ -1105,7 +1127,7 @@ bool Parser::paramWidget()
                 form.numberBoxes[form.numberBoxes.size() - 1].setDefaultValue(std::stoi(valueString));
             }
         }
-        if (activeString == "clicable")
+        if (activeString == "clickable")
         {
             if (checkBool(valueString))
             {
@@ -1138,6 +1160,28 @@ bool Parser::paramWidget()
                 form.checkBoxes[form.checkBoxes.size() - 1].setPositionVert(std::stoi(valueString));
             }
         }
+        if (activeString == "sizeVert")
+        {
+            if (!checkInt(valueString))
+            {
+                return false;
+            }
+            else
+            {
+                form.checkBoxes[form.checkBoxes.size() - 1].setSizeVert(std::stoi(valueString));
+            }
+        }
+        if (activeString == "sizeGorz")
+        {
+            if (!checkInt(valueString))
+            {
+                return false;
+            }
+            else
+            {
+                form.checkBoxes[form.checkBoxes.size() - 1].setSizeGorz(std::stoi(valueString));
+            }
+        }
         if (activeString == "positionGorz")
         {
             if (!checkInt(valueString))
@@ -1167,7 +1211,7 @@ bool Parser::paramWidget()
                 }
             }
         }
-        if (activeString == "clicable")
+        if (activeString == "clickable")
         {
             if (checkBool(valueString))
             {
@@ -1198,6 +1242,28 @@ bool Parser::paramWidget()
             else
             {
                 form.radioButtones[form.radioButtones.size() - 1].setPositionVert(std::stoi(valueString));
+            }
+        }
+        if (activeString == "sizeVert")
+        {
+            if (!checkInt(valueString))
+            {
+                return false;
+            }
+            else
+            {
+                form.radioButtones[form.radioButtones.size() - 1].setSizeVert(std::stoi(valueString));
+            }
+        }
+        if (activeString == "sizeGorz")
+        {
+            if (!checkInt(valueString))
+            {
+                return false;
+            }
+            else
+            {
+                form.radioButtones[form.radioButtones.size() - 1].setSizeGorz(std::stoi(valueString));
             }
         }
         if (activeString == "positionGorz")
@@ -1235,7 +1301,7 @@ bool Parser::paramWidget()
         }
     }
 
-    else if (scope.top() == NMWidgets::button)
+    else if (scope.top() == NMWidgets::editLine)
     {
         if (activeString == "sizeVert")
         {
@@ -1245,7 +1311,7 @@ bool Parser::paramWidget()
             }
             else
             {
-                form.buttons[form.buttons.size() - 1].setSizeVert(std::stoi(valueString));
+                form.editLines[form.editLines.size() - 1].setSizeVert(std::stoi(valueString));
             }
         }
         if (activeString == "sizeGorz")
@@ -1256,7 +1322,7 @@ bool Parser::paramWidget()
             }
             else
             {
-                form.buttons[form.buttons.size() - 1].setSizeGorz(std::stoi(valueString));
+                form.editLines[form.editLines.size() - 1].setSizeGorz(std::stoi(valueString));
             }
         }
         if (activeString == "positionVert")
@@ -1267,7 +1333,7 @@ bool Parser::paramWidget()
             }
             else
             {
-                form.buttons[form.buttons.size() - 1].setPositionVert(std::stoi(valueString));
+                form.editLines[form.editLines.size() - 1].setPositionVert(std::stoi(valueString));
             }
         }
         if (activeString == "positionGorz")
@@ -1278,38 +1344,20 @@ bool Parser::paramWidget()
             }
             else
             {
-                form.buttons[form.buttons.size() - 1].setPositionGorz(std::stoi(valueString));
+                form.editLines[form.editLines.size() - 1].setPositionGorz(std::stoi(valueString));
             }
         }
-        if (activeString == "clicable")
+        if (activeString == "multiline")
         {
             if (checkBool(valueString))
             {
                 if (getBool(valueString))
                 {
-                    form.buttons[form.buttons.size() - 1].setClicable(true);
+                    form.editLines[form.editLines.size() - 1].setMultiline(true);
                 }
                 else
                 {
-                    form.buttons[form.buttons.size() - 1].setClicable(false);
-                }
-            }
-            else
-            {
-                return false;
-            }
-        }
-        if (activeString == "doubleClicable")
-        {
-            if (checkBool(valueString))
-            {
-                if (getBool(valueString))
-                {
-                    form.buttons[form.buttons.size() - 1].setDoubleClicable(true);
-                }
-                else
-                {
-                    form.buttons[form.buttons.size() - 1].setDoubleClicable(false);
+                    form.editLines[form.editLines.size() - 1].setMultiline(false);
                 }
             }
             else
@@ -1319,7 +1367,7 @@ bool Parser::paramWidget()
         }
         if (activeString == "name")
         {
-            form.buttons[form.buttons.size() - 1].setName(valueString);
+            form.editLines[form.editLines.size() - 1].setName(valueString);
         }
     }
 
@@ -1446,7 +1494,6 @@ bool Parser::getValue()
     bool firstspace = false;
     for (size_t i = 1; i < parcingString.size(); ++i)
     {
-
         if (value)
         {
             if (parcingString[i] != '[' && parcingString[i] != ']' && parcingString[i] != '|' && parcingString[i] != '/' && parcingString[i] != '>' && parcingString[i] != '#')
@@ -1496,35 +1543,35 @@ bool Parser::checkParam()
         }
         else if (scope.top() == NMWidgets::button)
         {
-            if (activeString != "sizeVert" && activeString != "sizeGorz" && activeString != "positionVert" && activeString != "positionGorz" && activeString != "name" && activeString != "clicable" && activeString != "doubleClicable")
+            if (activeString != "sizeVert" && activeString != "sizeGorz" && activeString != "positionVert" && activeString != "positionGorz" && activeString != "name" && activeString != "clickable" && activeString != "doubleclickable")
             {
                 return false;
             }
         }
         else if (scope.top() == NMWidgets::label)
         {
-            if (activeString != "positionVert" && activeString != "positionGorz" && activeString != "name")
+            if (activeString != "sizeGorz" && activeString != "sizeVert" && activeString != "positionVert" && activeString != "positionGorz" && activeString != "name")
             {
                 return false;
             }
         }
         else if (scope.top() == NMWidgets::numberBox)
         {
-            if (activeString != "positionVert" && activeString != "positionGorz" && activeString != "name" && activeString != "minValue" && activeString != "maxValue" && activeString != "defaultValue" && activeString != "clicable")
+            if (activeString != "positionVert" && activeString != "positionGorz" && activeString != "name" && activeString != "minValue" && activeString != "maxValue" && activeString != "defaultValue" && activeString != "clickable")
             {
                 return false;
             }
         }
         else if (scope.top() == NMWidgets::checkBox)
         {
-            if (activeString != "positionVert" && activeString != "positionGorz" && activeString != "name" && activeString != "defaultValue" && activeString != "clicable")
+            if (activeString != "sizeGorz" && activeString != "sizeVert" && activeString != "positionVert" && activeString != "positionGorz" && activeString != "name" && activeString != "defaultValue" && activeString != "clickable")
             {
                 return false;
             }
         }
         else if (scope.top() == NMWidgets::radioButton)
         {
-            if (activeString != "positionVert" && activeString != "positionGorz" && activeString != "name" && activeString != "defaultValue" && activeString != "groupName")
+            if (activeString != "sizeGorz" && activeString != "sizeVert" && activeString != "positionVert" && activeString != "positionGorz" && activeString != "name" && activeString != "defaultValue" && activeString != "groupName")
             {
                 return false;
             }

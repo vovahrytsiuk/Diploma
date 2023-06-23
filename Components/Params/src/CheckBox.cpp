@@ -65,3 +65,23 @@ bool CheckBox::getClicable() const
 {
     return clicable;
 }
+
+void CheckBox::setSizeGorz(int info)
+{
+    sizeGorz = info;
+}
+
+int CheckBox::getSizeGorz() const
+{
+    return sizeGorz;
+}
+
+void CheckBox::setSizeVert(int info)
+{
+    sizeVert = info;
+}
+
+int CheckBox::getSizeVert() const
+{
+    return sizeVert;
+}

@@ -102,7 +102,8 @@ namespace
 Application::Application()
     : BaseApplication()
 {
-    // auto *button = _mainWindow.findWidgetByName<Button>("Button_Calculate");
-    // button->_click.connect([this]()
-    //                        { this->calculate(); });
+    auto *button = _mainWindow.findWidgetByName<Button>("Button_Calculate");
+    if (button)
+        button->_click.connect([this]()
+                               { this->calculate(); });
 }

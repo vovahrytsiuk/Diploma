@@ -1,66 +1,43 @@
-
-#pragma warning(disable : 4458)
 #include <Windows.h>
-#include <gdiplus.h>
-using namespace Gdiplus;
 
-LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
-
-int WINAPI WinMain(HINSTANCE hInstance, [[maybe_unused]] HINSTANCE hPrevInstance, [[maybe_unused]] LPSTR lpCmdLine, int nCmdShow)
+int main()
 {
-    // Initialize GDI+
-    GdiplusStartupInput gdiplusStartupInput;
-    ULONG_PTR gdiplusToken;
-    GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL);
+    // Get a device context for the window or control
+    HDC hdc = GetDC(NULL);
 
-    // Create the window
-    const char CLASS_NAME[] = "MyWindowClass";
-    WNDCLASS wc = {0};
-    wc.lpfnWndProc = WndProc;
-    wc.hInstance = hInstance;
-    wc.lpszClassName = CLASS_NAME;
-    RegisterClass(&wc);
+    // Set the text alignment flags
+    SetTextAlign(hdc, TA_LEFT | TA_TOP);
 
-    HWND hWnd = CreateWindowEx(
-        0, CLASS_NAME, "Image Window",
-        WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT,
-        500, 500, NULL, NULL, hInstance, NULL);
+    // Set the left and top margins
+    int leftMargin = 20;
+    int topMargin = 10;
 
-    if (hWnd == NULL)
-        return 0;
+    // Set the text color
+    SetTextColor(hdc, RGB(0, 0, 0)); // Black color
 
-    // Load and display the image
-    HDC hdc = GetDC(hWnd);
-    Graphics graphics(hdc);
-    Image image(L"R.png");
-    graphics.DrawImage(&image, 10, 10);
+    // Set the background color
+    SetBkColor(hdc, RGB(255, 255, 255)); // White color
 
-    // Clean up GDI+
-    ReleaseDC(hWnd, hdc);
-    GdiplusShutdown(gdiplusToken);
+    // Set the text font
+    HFONT hFont = CreateFont(16, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS,
+                             CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_DONTCARE, "Arial");
+    SelectObject(hdc, hFont);
 
-    // Display the window
-    ShowWindow(hWnd, nCmdShow);
+    // Set the margins
+    RECT rcMargin;
+    rcMargin.left = leftMargin;
+    rcMargin.top = topMargin;
+    rcMargin.right = 0;
+    rcMargin.bottom = 0;
+    SetTextCharacterExtra(hdc, rcMargin.left);
+    SetTextAlign(hdc, TA_LEFT | TA_TOP);
 
-    // Run the message loop
-    MSG msg = {0};
-    while (GetMessage(&msg, NULL, 0, 0))
-    {
-        TranslateMessage(&msg);
-        DispatchMessage(&msg);
-    }
+    // Draw the text
+    TextOut(hdc, leftMargin, topMargin, "Hello, World!", lstrlen("Hello, World!"));
 
-    return static_cast<WORD>(msg.wParam);
-}
+    // Cleanup
+    DeleteObject(hFont);
+    ReleaseDC(NULL, hdc);
 
-LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
-{
-    switch (msg)
-    {
-    case WM_DESTROY:
-        PostQuitMessage(0);
-        return 0;
-    }
-
-    return DefWindowProc(hWnd, msg, wParam, lParam);
+    return 0;
 }

@@ -43,3 +43,23 @@ std::string Label::getName() const
 {
     return name;
 }
+
+void Label::setSizeGorz(int info)
+{
+    sizeGorz = info;
+}
+
+int Label::getSizeGorz() const
+{
+    return sizeGorz;
+}
+
+void Label::setSizeVert(int info)
+{
+    sizeVert = info;
+}
+
+int Label::getSizeVert() const
+{
+    return sizeVert;
+}
