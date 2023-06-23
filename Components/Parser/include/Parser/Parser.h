@@ -18,7 +18,7 @@ public:
     std::string getError() { return error.getError(); }
 
 private:
-    const std::string pathFile{"../CppUI.txt"};
+    const std::string pathFile{"CppUI.txt"};
 
     std::ifstream fin;
 
